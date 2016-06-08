@@ -1,2 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="/home/songjia/AndroidStudioProjects/Lottery1/app/src/main/jniLibs"><file name="armeabi/libipaddressset.so" path="/home/songjia/AndroidStudioProjects/Lottery1/app/src/main/jniLibs/armeabi/libipaddressset.so"/></source></dataSet><dataSet config="debug"><source path="/home/songjia/AndroidStudioProjects/Lottery1/app/src/debug/jniLibs"/></dataSet></merger>
