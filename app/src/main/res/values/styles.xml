@@ -1,0 +1,46 @@
+<resources>
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+	<style name="Dialog" parent="android:Theme">
+        <item name="android:windowFrame">@null</item>
+        <!-- 设置背景颜色 -->
+        <item name="android:background">#30000000</item>        
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <!-- 除去背景 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+         <!--是否浮现在activity之上 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 是否半透明 -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- 去掉覆盖层 -->
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+   <style name="activityAnimation" parent="@android:style/Animation">  
+        <item name="android:activityOpenEnterAnimation">@anim/slide_right_in</item>  
+        <item name="android:activityOpenExitAnimation">@anim/slide_left_out</item>  
+        <item name="android:activityCloseEnterAnimation">@anim/slide_left_in</item>  
+        <item name="android:activityCloseExitAnimation">@anim/slide_right_out</item>  
+    </style>  
+    <style name="ThemeActivity">  
+    	<item name="android:windowAnimationStyle">@style/activityAnimation</item>  
+     	<item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+	</style>
+</resources>

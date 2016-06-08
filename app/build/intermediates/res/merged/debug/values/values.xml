@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <item name="tag_first" type="id"/>
+    <item name="tag_second" type="id"/>
+    <string name="action_settings">Settings</string>
+    <string name="app_name">彩票桌面</string>
+    <string name="app_update">应用升级</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="launcher_date_expire">开发版已过期</string>
+    <string name="title_activity_app">AppActivity</string>
+    <string name="title_activity_base_setting">BaseSettingActivity</string>
+    <string name="title_activity_setting">SettingActivity</string>
+    <string name="title_activity_user">UserActivity</string>
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+    <style name="Dialog" parent="android:Theme">
+        <item name="android:windowFrame">@null</item>
+        <!-- 设置背景颜色 -->
+        <item name="android:background">#30000000</item>        
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <!-- 除去背景 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+         <!--是否浮现在activity之上 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 是否半透明 -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- 去掉覆盖层 -->
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+    <style name="ThemeActivity">  
+    	<item name="android:windowAnimationStyle">@style/activityAnimation</item>  
+     	<item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+	</style>
+    <style name="activityAnimation" parent="@android:style/Animation">  
+        <item name="android:activityOpenEnterAnimation">@anim/slide_right_in</item>  
+        <item name="android:activityOpenExitAnimation">@anim/slide_left_out</item>  
+        <item name="android:activityCloseEnterAnimation">@anim/slide_left_in</item>  
+        <item name="android:activityCloseExitAnimation">@anim/slide_right_out</item>  
+    </style>
+</resources>

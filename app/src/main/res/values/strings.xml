@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">彩票桌面</string>
+
+    <item name="tag_first" type="id"></item>
+    <item name="tag_second" type="id"></item>
+
+    <string name="title_activity_app">AppActivity</string>
+    <string name="title_activity_setting">SettingActivity</string>
+    <string name="title_activity_user">UserActivity</string>
+    <string name="app_update">应用升级</string>
+    <string name="launcher_date_expire">开发版已过期</string>
+    <string name="title_activity_base_setting">BaseSettingActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+</resources>
