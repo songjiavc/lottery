@@ -32,12 +32,12 @@
         "source": "/home/songjia/AndroidStudioProjects/Lottery1/app/src/main/res/drawable-nodpi/main_btn_modi_down.png"
     },
     {
-        "merged": "/home/songjia/AndroidStudioProjects/Lottery1/app/build/intermediates/res/merged/debug/drawable-nodpi-v4/main_btn_change_user_up.png",
-        "source": "/home/songjia/AndroidStudioProjects/Lottery1/app/src/main/res/drawable-nodpi/main_btn_change_user_up.png"
-    },
-    {
         "merged": "/home/songjia/AndroidStudioProjects/Lottery1/app/build/intermediates/res/merged/debug/drawable-nodpi-v4/setting_iv_setting_other_msg.png",
         "source": "/home/songjia/AndroidStudioProjects/Lottery1/app/src/main/res/drawable-nodpi/setting_iv_setting_other_msg.png"
+    },
+    {
+        "merged": "/home/songjia/AndroidStudioProjects/Lottery1/app/build/intermediates/res/merged/debug/drawable-nodpi-v4/main_btn_change_user_up.png",
+        "source": "/home/songjia/AndroidStudioProjects/Lottery1/app/src/main/res/drawable-nodpi/main_btn_change_user_up.png"
     },
     {
         "merged": "/home/songjia/AndroidStudioProjects/Lottery1/app/build/intermediates/res/merged/debug/drawable-nodpi-v4/app_btn_next_company_notice_down.png",

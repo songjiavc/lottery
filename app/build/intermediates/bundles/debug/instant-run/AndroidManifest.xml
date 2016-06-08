@@ -59,11 +59,6 @@
             android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_setting" >
         </activity>
-        <activity
-            android:name="com.xuhen.lottery.activity.BaseSettingActivity"
-            android:configChanges="orientation|screenSize"
-            android:label="@string/title_activity_base_setting" >
-        </activity>
     </application>
 
 </manifest>

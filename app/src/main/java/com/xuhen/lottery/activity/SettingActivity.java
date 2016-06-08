@@ -24,6 +24,7 @@ import com.xuhen.lottery.view.MyTextView;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -45,6 +46,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.PowerManager;
 import android.os.SystemClock;
+import android.provider.Settings;
 import android.text.method.PasswordTransformationMethod;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -82,6 +84,9 @@ public class SettingActivity extends Activity {
 	private MyImageView iv_setting_app_ico = null;
 	private MyImageView iv_setting_layout_type_ico = null;
 	private MyImageView iv_setting_about_ico = null;
+	/*add by songjia 增加系统设置按钮*/
+	private MyImageView iv_setting_systemconfig_ico = null;
+
 	
 	private MyTextView tv_setting_system = null;
 	private MyTextView tv_setting_network = null;
@@ -90,7 +95,10 @@ public class SettingActivity extends Activity {
 	private MyTextView tv_setting_app = null;
 	private MyTextView tv_setting_layout_type = null;
 	private MyTextView tv_setting_about = null;
-	
+
+	/*添加系统设置按钮，借此调用系统设置菜单*/
+	private MyTextView tv_setting_systemconfig = null;
+
 	private MyImageView iv_setting_other_msg = null;
 	
 	//wifi变量
@@ -281,7 +289,7 @@ public class SettingActivity extends Activity {
 		        //通过程序的包名创建URL  
 				Uri packageURI=Uri.parse("package:"+pkg_name);  
 				//创建Intent意图  
-				Intent intent=new Intent(Intent.ACTION_DELETE);  
+				Intent intent=new Intent(Intent.ACTION_DELETE);
 				//设置Uri  
 				intent.setData(packageURI);  
 				//卸载程序  
@@ -1030,7 +1038,11 @@ public class SettingActivity extends Activity {
 		iv_setting_about_ico = (MyImageView)this.findViewById(R.id.setting_iv_setting_about_ico);
 		iv_setting_about_ico.SetImages(R.drawable.setting_iv_setting_about_ico);
 		iv_setting_about_ico.setVisibility(View.VISIBLE);
-		
+		/* 配置图片系统设置显示内容 */
+		iv_setting_systemconfig_ico = (MyImageView)this.findViewById(R.id.setting_iv_setting_systemconfig_ico);
+		iv_setting_systemconfig_ico.SetImages(R.drawable.setting_iv_setting_system_ico);
+		iv_setting_systemconfig_ico.setVisibility(View.VISIBLE);
+
 		//显示设置
 		tv_setting_system = (MyTextView)this.findViewById(R.id.setting_tv_setting_system);
 		tv_setting_system.setTextColor(0xfffeee87);
@@ -1255,6 +1267,7 @@ public class SettingActivity extends Activity {
 				iv_setting_other_msg.setVisibility(View.GONE);
 				tv_setting_about.setTextColor(0xffdafffc);
 				tv_setting_other.setTextColor(0xffdafffc);
+				tv_setting_systemconfig.setTextColor(0xffdafffc);
 				tv_setting_network.setTextColor(0xffdafffc);
 				tv_setting_system.setTextColor(0xffdafffc);
 				tv_setting_ap.setTextColor(0xffdafffc);
@@ -1309,6 +1322,45 @@ public class SettingActivity extends Activity {
 				
 			}
 		});
+
+		tv_setting_systemconfig = (MyTextView)this.findViewById(R.id.setting_tv_setting_systemconfig);
+		tv_setting_systemconfig.setTextColor(0xffdafffc);
+		tv_setting_systemconfig.setGravity(Gravity.CENTER);
+		tv_setting_systemconfig.setVisibility(View.VISIBLE);
+		tv_setting_systemconfig.setFocusable(true);
+		tv_setting_systemconfig.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				RelativeLayout layout_wifi = (RelativeLayout)findViewById(R.id.layout_wifi);
+				layout_wifi.setVisibility(View.GONE);
+				LinearLayout layout_system = (LinearLayout)findViewById(R.id.setting_layout_system_info);
+				layout_system.setVisibility(View.GONE);
+				RelativeLayout layout_ipset = (RelativeLayout)findViewById(R.id.layout_ipset);
+				layout_ipset.setVisibility(View.GONE);
+				RelativeLayout layout_apset = (RelativeLayout)findViewById(R.id.layout_apset);
+				layout_apset.setVisibility(View.GONE);
+				lv_app_list.setVisibility(View.GONE);
+				RelativeLayout layout_layout_type = (RelativeLayout)findViewById(R.id.layout_layout_modi);
+				layout_layout_type.setVisibility(View.GONE);
+				iv_setting_other_msg.setVisibility(View.GONE);
+				tv_setting_about.setTextColor(0xffdafffc);
+				tv_setting_other.setTextColor(0xffdafffc);
+				tv_setting_network.setTextColor(0xffdafffc);
+				tv_setting_system.setTextColor(0xffdafffc);
+				tv_setting_ap.setTextColor(0xffdafffc);
+				tv_setting_app.setTextColor(0xffdafffc);
+				tv_setting_layout_type.setTextColor(0xffdafffc);
+
+				if(MyVar.SYSTEM_LAYOUT_TYPE==0){
+					iv_setting_ico_bg.InitSize(0, 213+114*6, 420, 114);
+				}else{
+					iv_setting_ico_bg.InitSize(0, 213+114*6, 287, 114);
+				}
+				tv_setting_systemconfig.setTextColor(0xfffeee87);
+				Intent mIntent = new Intent(Settings.ACTION_DISPLAY_SETTINGS);
+				startActivityForResult( mIntent , 0);
+			}
+		});
 		
 		iv_setting_other_msg = (MyImageView)this.findViewById(R.id.setting_iv_setting_other_msg);
 		iv_setting_other_msg.SetImages(R.drawable.setting_iv_setting_other_msg);
@@ -1323,6 +1375,7 @@ public class SettingActivity extends Activity {
 			iv_setting_app_ico.InitSize(36, y+114*3+32, 58, 49);
 			iv_setting_layout_type_ico.InitSize(36, y+114*4+32, 58, 49);
 			iv_setting_about_ico.InitSize(36, y+114*5+32, 58, 49);
+			iv_setting_systemconfig_ico.InitSize(36,y+114*6+32,58,49);
 			tv_setting_system.InitSize(0, y, 287, 114,34);
 			tv_setting_network.InitSize(0, y+114, 287, 114,34);
 			tv_setting_other.InitSize(0, y+114*2, 287, 114,34);
@@ -1330,6 +1383,7 @@ public class SettingActivity extends Activity {
 			tv_setting_app.InitSize(0, y+114*3, 287, 114,34);
 			tv_setting_layout_type.InitSize(0, y+114*4, 287, 114,34);
 			tv_setting_about.InitSize(0, y+114*5, 287, 114,34);
+			tv_setting_systemconfig.InitSize(0,y+114*6,287,114,34);
 			iv_setting_other_msg.InitSize(383, 185, 576, 729);
 		}else{
 			iv_setting_message_bg.InitSize(420, 60, 1500, 1020);			
@@ -1341,6 +1395,7 @@ public class SettingActivity extends Activity {
 			iv_setting_app_ico.InitSize(96, y+114*3+32, 58, 49);
 			iv_setting_layout_type_ico.InitSize(96, y+114*4+32, 58, 49);
 			iv_setting_about_ico.InitSize(96, y+114*5+32, 58, 49);
+			iv_setting_systemconfig_ico.InitSize(96, y+114*6+32, 58, 49);
 			tv_setting_system.InitSize(0, y, 420, 114,34);
 			tv_setting_network.InitSize(0, y+114, 420, 114,34);
 			tv_setting_other.InitSize(0, y+114*2, 420, 114,34);
@@ -1348,6 +1403,7 @@ public class SettingActivity extends Activity {
 			tv_setting_app.InitSize(0, y+114*3, 420, 114,34);
 			tv_setting_layout_type.InitSize(0, y+114*4, 420, 114,34);
 			tv_setting_about.InitSize(0, y+114*5, 420, 114,34);
+			tv_setting_systemconfig.InitSize(0, y+114*6, 420, 114,34);
 			iv_setting_other_msg.InitSize(470, 90, 576, 729);
 		}
 	}

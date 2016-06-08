@@ -4,51 +4,29 @@
     api-level="19"
     density="hdpi"
     format="7"
-    timestamp="30101948312465"
-    verifier="COMPATIBLE" >
+    timestamp="10274259547870" >
 
     <task
         name="javac"
-        duration="273" />
+        duration="363" />
     <task
         name="instant-run-dex"
-        duration="1143" />
+        duration="0" />
     <task
         name="instant-run-transform"
-        duration="21" />
+        duration="136" />
     <task
         name="verifier"
-        duration="2" />
+        duration="18" />
 
     <artifact
-        location="/home/songjia/AndroidStudioProjects/Lottery1/app/build/intermediates/reload-dex/debug/classes.dex"
-        type="RELOAD_DEX" />
+        location="/home/songjia/AndroidStudioProjects/Lottery1/app/build/outputs/apk/app-debug.apk"
+        type="MAIN" />
 
-    <build timestamp="29559369805675" >
+    <build timestamp="10274259547870" >
         <artifact
             location="/home/songjia/AndroidStudioProjects/Lottery1/app/build/outputs/apk/app-debug.apk"
             type="MAIN" />
-    </build>
-    <build
-        timestamp="29762230633243"
-        verifier="COMPATIBLE" >
-        <artifact
-            location="/home/songjia/AndroidStudioProjects/Lottery1/app/build/intermediates/builds/debug/29762230633243/classes.dex"
-            type="RELOAD_DEX" />
-    </build>
-    <build
-        timestamp="29989987539958"
-        verifier="COMPATIBLE" >
-        <artifact
-            location="/home/songjia/AndroidStudioProjects/Lottery1/app/build/intermediates/builds/debug/29989987539958/classes.dex"
-            type="RELOAD_DEX" />
-    </build>
-    <build
-        timestamp="30101948312465"
-        verifier="COMPATIBLE" >
-        <artifact
-            location="/home/songjia/AndroidStudioProjects/Lottery1/app/build/intermediates/reload-dex/debug/classes.dex"
-            type="RELOAD_DEX" />
     </build>
 
 </instant-run>

@@ -12,10 +12,6 @@
         "source": "/home/songjia/AndroidStudioProjects/Lottery1/app/src/main/res/layout/activity_wifi_item.xml"
     },
     {
-        "merged": "/home/songjia/AndroidStudioProjects/Lottery1/app/build/intermediates/res/merged/debug/layout/activity_base_setting.xml",
-        "source": "/home/songjia/AndroidStudioProjects/Lottery1/app/src/main/res/layout/activity_base_setting.xml"
-    },
-    {
         "merged": "/home/songjia/AndroidStudioProjects/Lottery1/app/build/intermediates/res/merged/debug/layout/app_list_item.xml",
         "source": "/home/songjia/AndroidStudioProjects/Lottery1/app/src/main/res/layout/app_list_item.xml"
     },
