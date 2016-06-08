@@ -82,7 +82,7 @@ public class SettingActivity extends Activity {
 	private MyImageView iv_setting_other_ico = null;
 	private MyImageView iv_setting_ap_ico = null;
 	private MyImageView iv_setting_app_ico = null;
-	private MyImageView iv_setting_layout_type_ico = null;
+	//private MyImageView iv_setting_layout_type_ico = null;
 	private MyImageView iv_setting_about_ico = null;
 	/*add by songjia 增加系统设置按钮*/
 	private MyImageView iv_setting_systemconfig_ico = null;
@@ -93,7 +93,7 @@ public class SettingActivity extends Activity {
 	private MyTextView tv_setting_other = null;
 	private MyTextView tv_setting_ap = null;
 	private MyTextView tv_setting_app = null;
-	private MyTextView tv_setting_layout_type = null;
+//	private MyTextView tv_setting_layout_type = null;
 	private MyTextView tv_setting_about = null;
 
 	/*添加系统设置按钮，借此调用系统设置菜单*/
@@ -141,7 +141,7 @@ public class SettingActivity extends Activity {
 	//主页显示PKG
 	private ArrayList<String> main_pkg_list = null;
 	//主要显示屏幕旋转
-	private Switch switch_layout_type = null;
+	//private Switch switch_layout_type = null;
 	//右下部分布局
 	private LayoutParams layout_right_bottom = null;
 	private long start_time = 0;
@@ -212,15 +212,17 @@ public class SettingActivity extends Activity {
 		layout_apset.setVisibility(View.GONE);
 		lv_app_list = (ListView)this.findViewById(R.id.lv_app_list);
 		lv_app_list.setVisibility(View.GONE);
+		/*
 		RelativeLayout layout_layout_modi = (RelativeLayout)this.findViewById(R.id.layout_layout_modi);
 		layout_layout_modi.setVisibility(View.GONE);
+		*/
 		InitSystemInfo();
 		InitIpSet();
 		//InitApSet();
 		//读取软件列表
 		InitAppList();
 		//屏幕旋转初始化
-		InitLayoutType();
+		//InitLayoutType();
 	}
 	
 	
@@ -354,6 +356,7 @@ public class SettingActivity extends Activity {
     }
 	
 	//初始化屏幕旋转
+	/*
 	private void InitLayoutType(){
 		RelativeLayout layout_modi = (RelativeLayout)findViewById(R.id.layout_layout_modi);
 		layout_modi.setLayoutParams(layout_right_bottom);
@@ -397,6 +400,7 @@ public class SettingActivity extends Activity {
 		long run_time = System.currentTimeMillis()-start_time;
 		MyClass.PrintLog("SettingActivity init finish"+run_time);
 	}
+	*/
 	//初始化AP设置
 	private void InitApSet(){
 		RelativeLayout layout_apset = (RelativeLayout)findViewById(R.id.layout_apset);
@@ -1030,11 +1034,11 @@ public class SettingActivity extends Activity {
 		iv_setting_app_ico = (MyImageView)this.findViewById(R.id.setting_iv_setting_app_ico);
 		iv_setting_app_ico.SetImages(R.drawable.setting_iv_setting_other_ico);
 		iv_setting_app_ico.setVisibility(View.VISIBLE);
-		
+		/*
 		iv_setting_layout_type_ico = (MyImageView)this.findViewById(R.id.setting_iv_setting_layout_type_ico);
 		iv_setting_layout_type_ico.SetImages(R.drawable.setting_iv_setting_other_ico);
 		iv_setting_layout_type_ico.setVisibility(View.VISIBLE);
-		
+		*/
 		iv_setting_about_ico = (MyImageView)this.findViewById(R.id.setting_iv_setting_about_ico);
 		iv_setting_about_ico.SetImages(R.drawable.setting_iv_setting_about_ico);
 		iv_setting_about_ico.setVisibility(View.VISIBLE);
@@ -1061,8 +1065,10 @@ public class SettingActivity extends Activity {
 				RelativeLayout layout_apset = (RelativeLayout)findViewById(R.id.layout_apset);
 				layout_apset.setVisibility(View.GONE);
 				lv_app_list.setVisibility(View.GONE);
+				/*
 				RelativeLayout layout_layout_type = (RelativeLayout)findViewById(R.id.layout_layout_modi);
 				layout_layout_type.setVisibility(View.GONE);
+				*/
 				iv_setting_other_msg.setVisibility(View.GONE);
 				tv_setting_about.setTextColor(0xffdafffc);
 				tv_setting_other.setTextColor(0xffdafffc);
@@ -1070,7 +1076,7 @@ public class SettingActivity extends Activity {
 				tv_setting_system.setTextColor(0xffdafffc);
 				tv_setting_ap.setTextColor(0xffdafffc);
 				tv_setting_app.setTextColor(0xffdafffc);
-				tv_setting_layout_type.setTextColor(0xffdafffc);
+				//tv_setting_layout_type.setTextColor(0xffdafffc);
 				
 				if(MyVar.SYSTEM_LAYOUT_TYPE==0){
 					iv_setting_ico_bg.InitSize(0, 213+114*0, 420, 114);
@@ -1099,8 +1105,10 @@ public class SettingActivity extends Activity {
 				RelativeLayout layout_apset = (RelativeLayout)findViewById(R.id.layout_apset);
 				layout_apset.setVisibility(View.GONE);
 				lv_app_list.setVisibility(View.GONE);
+				/*
 				RelativeLayout layout_layout_type = (RelativeLayout)findViewById(R.id.layout_layout_modi);
 				layout_layout_type.setVisibility(View.GONE);
+				*/
 				iv_setting_other_msg.setVisibility(View.GONE);
 				tv_setting_about.setTextColor(0xffdafffc);
 				tv_setting_other.setTextColor(0xffdafffc);
@@ -1108,7 +1116,7 @@ public class SettingActivity extends Activity {
 				tv_setting_system.setTextColor(0xffdafffc);
 				tv_setting_ap.setTextColor(0xffdafffc);
 				tv_setting_app.setTextColor(0xffdafffc);
-				tv_setting_layout_type.setTextColor(0xffdafffc);
+				//tv_setting_layout_type.setTextColor(0xffdafffc);
 				
 				if(MyVar.SYSTEM_LAYOUT_TYPE==0){
 					iv_setting_ico_bg.InitSize(0, 213+114*1, 420, 114);
@@ -1139,8 +1147,9 @@ public class SettingActivity extends Activity {
 				RelativeLayout layout_apset = (RelativeLayout)findViewById(R.id.layout_apset);
 				layout_apset.setVisibility(View.GONE);
 				lv_app_list.setVisibility(View.GONE);
-				RelativeLayout layout_layout_type = (RelativeLayout)findViewById(R.id.layout_layout_modi);
+				/*RelativeLayout layout_layout_type = (RelativeLayout)findViewById(R.id.layout_layout_modi);
 				layout_layout_type.setVisibility(View.GONE);
+				*/
 				iv_setting_other_msg.setVisibility(View.GONE);
 				tv_setting_about.setTextColor(0xffdafffc);
 				tv_setting_other.setTextColor(0xffdafffc);
@@ -1148,7 +1157,7 @@ public class SettingActivity extends Activity {
 				tv_setting_system.setTextColor(0xffdafffc);
 				tv_setting_ap.setTextColor(0xffdafffc);
 				tv_setting_app.setTextColor(0xffdafffc);
-				tv_setting_layout_type.setTextColor(0xffdafffc);
+				//tv_setting_layout_type.setTextColor(0xffdafffc);
 				
 				if(MyVar.SYSTEM_LAYOUT_TYPE==0){
 					iv_setting_ico_bg.InitSize(0, 213+114*2, 420, 114);
@@ -1180,8 +1189,10 @@ public class SettingActivity extends Activity {
 				RelativeLayout layout_apset = (RelativeLayout)findViewById(R.id.layout_apset);
 				layout_apset.setVisibility(View.GONE);
 				lv_app_list.setVisibility(View.GONE);
+				/*
 				RelativeLayout layout_layout_type = (RelativeLayout)findViewById(R.id.layout_layout_modi);
 				layout_layout_type.setVisibility(View.GONE);
+				*/
 				iv_setting_other_msg.setVisibility(View.GONE);
 				tv_setting_about.setTextColor(0xffdafffc);
 				tv_setting_other.setTextColor(0xffdafffc);
@@ -1189,7 +1200,7 @@ public class SettingActivity extends Activity {
 				tv_setting_system.setTextColor(0xffdafffc);
 				tv_setting_ap.setTextColor(0xffdafffc);
 				tv_setting_app.setTextColor(0xffdafffc);
-				tv_setting_layout_type.setTextColor(0xffdafffc);
+				//tv_setting_layout_type.setTextColor(0xffdafffc);
 				
 				if(MyVar.SYSTEM_LAYOUT_TYPE==0){
 					iv_setting_ico_bg.InitSize(0, 213+114*3, 420, 114);
@@ -1221,8 +1232,10 @@ public class SettingActivity extends Activity {
 				RelativeLayout layout_apset = (RelativeLayout)findViewById(R.id.layout_apset);
 				layout_apset.setVisibility(View.GONE);
 				lv_app_list.setVisibility(View.GONE);
+				/*
 				RelativeLayout layout_layout_type = (RelativeLayout)findViewById(R.id.layout_layout_modi);
 				layout_layout_type.setVisibility(View.GONE);
+				*/
 				iv_setting_other_msg.setVisibility(View.GONE);
 				tv_setting_about.setTextColor(0xffdafffc);
 				tv_setting_other.setTextColor(0xffdafffc);
@@ -1230,7 +1243,7 @@ public class SettingActivity extends Activity {
 				tv_setting_system.setTextColor(0xffdafffc);
 				tv_setting_ap.setTextColor(0xffdafffc);
 				tv_setting_app.setTextColor(0xffdafffc);
-				tv_setting_layout_type.setTextColor(0xffdafffc);
+				//tv_setting_layout_type.setTextColor(0xffdafffc);
 				
 				if(MyVar.SYSTEM_LAYOUT_TYPE==0){
 					iv_setting_ico_bg.InitSize(0, 213+114*3, 420, 114);
@@ -1244,7 +1257,7 @@ public class SettingActivity extends Activity {
 				//ShowNetworkInfo();
 			}
 		});
-		
+		/*
 		tv_setting_layout_type = (MyTextView)this.findViewById(R.id.setting_tv_setting_layout_type);
 		tv_setting_layout_type.setTextColor(0xffdafffc);
 		tv_setting_layout_type.setGravity(Gravity.CENTER);
@@ -1283,7 +1296,7 @@ public class SettingActivity extends Activity {
 				layout_layout_type.setVisibility(View.VISIBLE);
 			}
 		});
-		
+		*/
 		tv_setting_about = (MyTextView)this.findViewById(R.id.setting_tv_setting_about);
 		tv_setting_about.setTextColor(0xffdafffc);
 		tv_setting_about.setGravity(Gravity.CENTER);
@@ -1301,8 +1314,10 @@ public class SettingActivity extends Activity {
 				RelativeLayout layout_apset = (RelativeLayout)findViewById(R.id.layout_apset);
 				layout_apset.setVisibility(View.GONE);
 				lv_app_list.setVisibility(View.GONE);
+				/*
 				RelativeLayout layout_layout_type = (RelativeLayout)findViewById(R.id.layout_layout_modi);
 				layout_layout_type.setVisibility(View.GONE);
+				*/
 				iv_setting_other_msg.setVisibility(View.GONE);
 				tv_setting_about.setTextColor(0xffdafffc);
 				tv_setting_other.setTextColor(0xffdafffc);
@@ -1310,7 +1325,7 @@ public class SettingActivity extends Activity {
 				tv_setting_system.setTextColor(0xffdafffc);
 				tv_setting_ap.setTextColor(0xffdafffc);
 				tv_setting_app.setTextColor(0xffdafffc);
-				tv_setting_layout_type.setTextColor(0xffdafffc);
+				//tv_setting_layout_type.setTextColor(0xffdafffc);
 				
 				if(MyVar.SYSTEM_LAYOUT_TYPE==0){
 					iv_setting_ico_bg.InitSize(0, 213+114*5, 420, 114);
@@ -1340,8 +1355,10 @@ public class SettingActivity extends Activity {
 				RelativeLayout layout_apset = (RelativeLayout)findViewById(R.id.layout_apset);
 				layout_apset.setVisibility(View.GONE);
 				lv_app_list.setVisibility(View.GONE);
+				/*
 				RelativeLayout layout_layout_type = (RelativeLayout)findViewById(R.id.layout_layout_modi);
 				layout_layout_type.setVisibility(View.GONE);
+				*/
 				iv_setting_other_msg.setVisibility(View.GONE);
 				tv_setting_about.setTextColor(0xffdafffc);
 				tv_setting_other.setTextColor(0xffdafffc);
@@ -1349,12 +1366,12 @@ public class SettingActivity extends Activity {
 				tv_setting_system.setTextColor(0xffdafffc);
 				tv_setting_ap.setTextColor(0xffdafffc);
 				tv_setting_app.setTextColor(0xffdafffc);
-				tv_setting_layout_type.setTextColor(0xffdafffc);
+				//tv_setting_layout_type.setTextColor(0xffdafffc);
 
 				if(MyVar.SYSTEM_LAYOUT_TYPE==0){
-					iv_setting_ico_bg.InitSize(0, 213+114*6, 420, 114);
+					iv_setting_ico_bg.InitSize(0, 213+114*4, 420, 114);
 				}else{
-					iv_setting_ico_bg.InitSize(0, 213+114*6, 287, 114);
+					iv_setting_ico_bg.InitSize(0, 213+114*4, 287, 114);
 				}
 				tv_setting_systemconfig.setTextColor(0xfffeee87);
 				Intent mIntent = new Intent(Settings.ACTION_DISPLAY_SETTINGS);
@@ -1373,17 +1390,17 @@ public class SettingActivity extends Activity {
 			iv_setting_other_ico.InitSize(36, y+114*2+32, 58, 49);
 			iv_setting_ap_ico.InitSize(36, y+114*3+32, 58, 49);
 			iv_setting_app_ico.InitSize(36, y+114*3+32, 58, 49);
-			iv_setting_layout_type_ico.InitSize(36, y+114*4+32, 58, 49);
+			//iv_setting_layout_type_ico.InitSize(36, y+114*4+32, 58, 49);
 			iv_setting_about_ico.InitSize(36, y+114*5+32, 58, 49);
-			iv_setting_systemconfig_ico.InitSize(36,y+114*6+32,58,49);
+			iv_setting_systemconfig_ico.InitSize(36,y+114*4+32,58,49);
 			tv_setting_system.InitSize(0, y, 287, 114,34);
 			tv_setting_network.InitSize(0, y+114, 287, 114,34);
 			tv_setting_other.InitSize(0, y+114*2, 287, 114,34);
 			tv_setting_ap.InitSize(0, y+114*3, 287, 114,34);
 			tv_setting_app.InitSize(0, y+114*3, 287, 114,34);
-			tv_setting_layout_type.InitSize(0, y+114*4, 287, 114,34);
+			//tv_setting_layout_type.InitSize(0, y+114*4, 287, 114,34);
 			tv_setting_about.InitSize(0, y+114*5, 287, 114,34);
-			tv_setting_systemconfig.InitSize(0,y+114*6,287,114,34);
+			tv_setting_systemconfig.InitSize(0,y+114*4,287,114,34);
 			iv_setting_other_msg.InitSize(383, 185, 576, 729);
 		}else{
 			iv_setting_message_bg.InitSize(420, 60, 1500, 1020);			
@@ -1393,17 +1410,17 @@ public class SettingActivity extends Activity {
 			iv_setting_other_ico.InitSize(96, y+114*2+32, 58, 49);
 			iv_setting_ap_ico.InitSize(96, y+114*3+32, 58, 49);
 			iv_setting_app_ico.InitSize(96, y+114*3+32, 58, 49);
-			iv_setting_layout_type_ico.InitSize(96, y+114*4+32, 58, 49);
+			//iv_setting_layout_type_ico.InitSize(96, y+114*4+32, 58, 49);
 			iv_setting_about_ico.InitSize(96, y+114*5+32, 58, 49);
-			iv_setting_systemconfig_ico.InitSize(96, y+114*6+32, 58, 49);
+			iv_setting_systemconfig_ico.InitSize(96, y+114*4+32, 58, 49);
 			tv_setting_system.InitSize(0, y, 420, 114,34);
 			tv_setting_network.InitSize(0, y+114, 420, 114,34);
 			tv_setting_other.InitSize(0, y+114*2, 420, 114,34);
 			tv_setting_ap.InitSize(0, y+114*3, 420, 114,34);
 			tv_setting_app.InitSize(0, y+114*3, 420, 114,34);
-			tv_setting_layout_type.InitSize(0, y+114*4, 420, 114,34);
+			//tv_setting_layout_type.InitSize(0, y+114*4, 420, 114,34);
 			tv_setting_about.InitSize(0, y+114*5, 420, 114,34);
-			tv_setting_systemconfig.InitSize(0, y+114*6, 420, 114,34);
+			tv_setting_systemconfig.InitSize(0, y+114*4, 420, 114,34);
 			iv_setting_other_msg.InitSize(470, 90, 576, 729);
 		}
 	}
@@ -2081,7 +2098,7 @@ public class SettingActivity extends Activity {
 		}
 		return info;
 	}
-	
+	/*
 	private void SetLayoutType(int type){
 		if(type==1){		
 			IpAddressSet.SetLayoutType(1);
@@ -2090,7 +2107,7 @@ public class SettingActivity extends Activity {
 		}
 		IpAddressSet.Reboot();
 	}
-	
+	*/
 	
 }
 

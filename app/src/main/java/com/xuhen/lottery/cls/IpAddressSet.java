@@ -16,7 +16,7 @@ public class IpAddressSet {
 	public static native String GetHttp(String url);
 	public static native String SetLayoutType(int layout_type);
 	public static native int GetLayoutType();
-	public static native String Reboot();
+	//public static native String Reboot();
 	
 	static {
 		System.loadLibrary("ipaddressset");

@@ -136,14 +136,7 @@
     	android:layout_y="0px"
     	android:background="@drawable/setting_iv_setting_other_ico"        
     />
-    <com.xuhen.lottery.view.MyImageView 
-    	android:id="@+id/setting_iv_setting_layout_type_ico"
-    	android:layout_width="361px"
-    	android:layout_height="120px"
-    	android:layout_x="720px"
-    	android:layout_y="0px"
-    	android:background="@drawable/setting_iv_setting_other_ico"        
-    />
+
     <com.xuhen.lottery.view.MyImageView 
     	android:id="@+id/setting_iv_setting_about_ico"
     	android:layout_width="361px"
@@ -216,18 +209,7 @@
 	    android:gravity="center_vertical"
 	    android:textAppearance="?android:attr/textAppearanceMedium"
 	    android:textSize="37px" />
-    <com.xuhen.lottery.view.MyTextView 
-        android:id="@+id/setting_tv_setting_layout_type"
-	   	android:layout_width="361px"
-    	android:layout_height="120px"
-    	android:layout_x="720px"
-    	android:layout_y="0px"
-	    android:text="　屏幕旋转"
-	    android:textColor="#fefffc"
-	    android:gravity="center_vertical"
-	    android:textAppearance="?android:attr/textAppearanceMedium"
-	    android:textSize="37px" />
-    <com.xuhen.lottery.view.MyTextView 
+    <com.xuhen.lottery.view.MyTextView
         android:id="@+id/setting_tv_setting_about"
 	   	android:layout_width="361px"
     	android:layout_height="120px"
@@ -730,36 +712,4 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true" >
     </ListView>
-    <RelativeLayout 
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-	    android:id="@+id/layout_layout_modi"
-	    tools:context="com.xuhen.mywifi.WifiActivity" >
-	    
-        
-        <com.xuhen.lottery.view.MyTextView 
-	        android:id="@+id/setting_tv_layout_type"
-		   	android:layout_width="wrap_content"
-	    	android:layout_height="50px"
-	    	android:layout_marginTop="10px"
-		    android:text="屏幕旋转："
-		    android:textColor="#fefffc"
-		    android:gravity="center_vertical"
-		    android:textAppearance="?android:attr/textAppearanceMedium"
-		    android:textSize="30px" />
-        <Switch
-	        android:id="@+id/setting_switch_layout_type"
-	        android:layout_width="wrap_content"
-	    	android:layout_height="50px"
-	        android:layout_alignBaseline="@id/setting_tv_layout_type"
-	    	android:layout_toRightOf="@id/setting_tv_layout_type"
-	        android:paddingTop="0px"
-	        android:paddingBottom="0px"
-	        android:paddingLeft="0px"
-	        android:paddingRight="0px"
-	        android:textOn="横屏"
-	        android:textOff="竖屏"
-	        android:textColorHighlight="#ffffff"
-	        android:textColor="#f0f1f3" />
-	</RelativeLayout>
 </AbsoluteLayout>
