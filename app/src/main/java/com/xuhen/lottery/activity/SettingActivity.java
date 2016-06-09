@@ -90,8 +90,8 @@ public class SettingActivity extends Activity {
 	
 	private MyTextView tv_setting_system = null;
 	private MyTextView tv_setting_network = null;
-	private MyTextView tv_setting_other = null;
-	private MyTextView tv_setting_ap = null;
+//	private MyTextView tv_setting_other = null;
+//	private MyTextView tv_setting_ap = null;
 	private MyTextView tv_setting_app = null;
 //	private MyTextView tv_setting_layout_type = null;
 	private MyTextView tv_setting_about = null;
@@ -172,9 +172,10 @@ public class SettingActivity extends Activity {
 		MyVar.set_handler = new Handler(){
 			@Override
 			public void handleMessage(Message msg) {
+				/*
 				if(msg.what==0x1000){
 					ShowNetworkInfo();
-				}
+				}*/
 				super.handleMessage(msg);
 			}			
 		};
@@ -206,10 +207,10 @@ public class SettingActivity extends Activity {
 		
 		RelativeLayout layout_wifi = (RelativeLayout)this.findViewById(R.id.layout_wifi);
 		layout_wifi.setVisibility(View.GONE);
-		RelativeLayout layout_ipset = (RelativeLayout)this.findViewById(R.id.layout_ipset);
-		layout_ipset.setVisibility(View.GONE);
-		RelativeLayout layout_apset = (RelativeLayout)this.findViewById(R.id.layout_apset);
-		layout_apset.setVisibility(View.GONE);
+		//RelativeLayout layout_ipset = (RelativeLayout)this.findViewById(R.id.layout_ipset);
+		//layout_ipset.setVisibility(View.GONE);
+		//RelativeLayout layout_apset = (RelativeLayout)this.findViewById(R.id.layout_apset);
+		//layout_apset.setVisibility(View.GONE);
 		lv_app_list = (ListView)this.findViewById(R.id.lv_app_list);
 		lv_app_list.setVisibility(View.GONE);
 		/*
@@ -217,7 +218,7 @@ public class SettingActivity extends Activity {
 		layout_layout_modi.setVisibility(View.GONE);
 		*/
 		InitSystemInfo();
-		InitIpSet();
+		//InitIpSet();
 		//InitApSet();
 		//读取软件列表
 		InitAppList();
@@ -402,6 +403,7 @@ public class SettingActivity extends Activity {
 	}
 	*/
 	//初始化AP设置
+	/*
 	private void InitApSet(){
 		RelativeLayout layout_apset = (RelativeLayout)findViewById(R.id.layout_apset);
 		layout_apset.setLayoutParams(this.layout_right_bottom);
@@ -491,6 +493,7 @@ public class SettingActivity extends Activity {
 			}							
 		});
 	}
+	*/
 	
 	public boolean IsWifiApEnabled() {  
 		boolean result = false;
@@ -503,7 +506,7 @@ public class SettingActivity extends Activity {
 		}  
 		return result;  
 	}  
-
+/*
 	private boolean StopAp(){
 		boolean b = false;
 		if(IsWifiApEnabled()==false){
@@ -521,8 +524,10 @@ public class SettingActivity extends Activity {
 			e.printStackTrace();
 		}
 		return b;
-	}
+	}*/
+
 	//初始化IP设置
+	/*
 	private void InitIpSet(){
 		RelativeLayout layout_system = (RelativeLayout)findViewById(R.id.layout_ipset);
 		layout_system.setLayoutParams(this.layout_right_bottom);
@@ -885,6 +890,7 @@ public class SettingActivity extends Activity {
 			}
 		});
 	}
+	*/
 	//初始化自定义TAB按钮
 	private void InitCommonView(int cur_activity_id){
 		//标题背景
@@ -1021,15 +1027,16 @@ public class SettingActivity extends Activity {
 		iv_setting_network_ico = (MyImageView)this.findViewById(R.id.setting_iv_setting_network_ico);
 		iv_setting_network_ico.SetImages(R.drawable.setting_iv_setting_network_ico);
 		iv_setting_network_ico.setVisibility(View.VISIBLE);
-		
+		/*
 		iv_setting_other_ico = (MyImageView)this.findViewById(R.id.setting_iv_setting_other_ico);
 		iv_setting_other_ico.SetImages(R.drawable.setting_iv_setting_other_ico);
 		iv_setting_other_ico.setVisibility(View.VISIBLE);
-		
+		*/
+		/*  去掉热点设置问题
 		iv_setting_ap_ico = (MyImageView)this.findViewById(R.id.setting_iv_setting_ap_ico);
 		iv_setting_ap_ico.SetImages(R.drawable.setting_iv_setting_other_ico);
 		iv_setting_ap_ico.setVisibility(View.GONE);
-		
+		*/
 		
 		iv_setting_app_ico = (MyImageView)this.findViewById(R.id.setting_iv_setting_app_ico);
 		iv_setting_app_ico.SetImages(R.drawable.setting_iv_setting_other_ico);
@@ -1060,10 +1067,10 @@ public class SettingActivity extends Activity {
 				layout_wifi.setVisibility(View.GONE);
 				LinearLayout layout_system = (LinearLayout)findViewById(R.id.setting_layout_system_info);
 				layout_system.setVisibility(View.GONE);
-				RelativeLayout layout_ipset = (RelativeLayout)findViewById(R.id.layout_ipset);
-				layout_ipset.setVisibility(View.GONE);
-				RelativeLayout layout_apset = (RelativeLayout)findViewById(R.id.layout_apset);
-				layout_apset.setVisibility(View.GONE);
+				//RelativeLayout layout_ipset = (RelativeLayout)findViewById(R.id.layout_ipset);
+				//layout_ipset.setVisibility(View.GONE);
+				//RelativeLayout layout_apset = (RelativeLayout)findViewById(R.id.layout_apset);
+				//layout_apset.setVisibility(View.GONE);
 				lv_app_list.setVisibility(View.GONE);
 				/*
 				RelativeLayout layout_layout_type = (RelativeLayout)findViewById(R.id.layout_layout_modi);
@@ -1071,13 +1078,13 @@ public class SettingActivity extends Activity {
 				*/
 				iv_setting_other_msg.setVisibility(View.GONE);
 				tv_setting_about.setTextColor(0xffdafffc);
-				tv_setting_other.setTextColor(0xffdafffc);
+//				tv_setting_other.setTextColor(0xffdafffc);
 				tv_setting_network.setTextColor(0xffdafffc);
 				tv_setting_system.setTextColor(0xffdafffc);
-				tv_setting_ap.setTextColor(0xffdafffc);
+//				tv_setting_ap.setTextColor(0xffdafffc);
 				tv_setting_app.setTextColor(0xffdafffc);
 				//tv_setting_layout_type.setTextColor(0xffdafffc);
-				
+				tv_setting_systemconfig.setTextColor(0xffdafffc);
 				if(MyVar.SYSTEM_LAYOUT_TYPE==0){
 					iv_setting_ico_bg.InitSize(0, 213+114*0, 420, 114);
 				}else{
@@ -1100,10 +1107,10 @@ public class SettingActivity extends Activity {
 				layout_wifi.setVisibility(View.GONE);
 				LinearLayout layout_system = (LinearLayout)findViewById(R.id.setting_layout_system_info);
 				layout_system.setVisibility(View.GONE);
-				RelativeLayout layout_ipset = (RelativeLayout)findViewById(R.id.layout_ipset);
-				layout_ipset.setVisibility(View.GONE);
-				RelativeLayout layout_apset = (RelativeLayout)findViewById(R.id.layout_apset);
-				layout_apset.setVisibility(View.GONE);
+				//RelativeLayout layout_ipset = (RelativeLayout)findViewById(R.id.layout_ipset);
+				//layout_ipset.setVisibility(View.GONE);
+		//		RelativeLayout layout_apset = (RelativeLayout)findViewById(R.id.layout_apset);
+		//		layout_apset.setVisibility(View.GONE);
 				lv_app_list.setVisibility(View.GONE);
 				/*
 				RelativeLayout layout_layout_type = (RelativeLayout)findViewById(R.id.layout_layout_modi);
@@ -1111,11 +1118,12 @@ public class SettingActivity extends Activity {
 				*/
 				iv_setting_other_msg.setVisibility(View.GONE);
 				tv_setting_about.setTextColor(0xffdafffc);
-				tv_setting_other.setTextColor(0xffdafffc);
+		//		tv_setting_other.setTextColor(0xffdafffc);
 				tv_setting_network.setTextColor(0xffdafffc);
 				tv_setting_system.setTextColor(0xffdafffc);
-				tv_setting_ap.setTextColor(0xffdafffc);
+		//		tv_setting_ap.setTextColor(0xffdafffc);
 				tv_setting_app.setTextColor(0xffdafffc);
+				tv_setting_systemconfig.setTextColor(0xffdafffc);
 				//tv_setting_layout_type.setTextColor(0xffdafffc);
 				
 				if(MyVar.SYSTEM_LAYOUT_TYPE==0){
@@ -1129,7 +1137,7 @@ public class SettingActivity extends Activity {
 				WifiInit();
 			}
 		});
-		
+		/*
 		tv_setting_other = (MyTextView)this.findViewById(R.id.setting_tv_setting_other);
 		tv_setting_other.setTextColor(0xffdafffc);
 		tv_setting_other.setGravity(Gravity.CENTER);
@@ -1147,9 +1155,8 @@ public class SettingActivity extends Activity {
 				RelativeLayout layout_apset = (RelativeLayout)findViewById(R.id.layout_apset);
 				layout_apset.setVisibility(View.GONE);
 				lv_app_list.setVisibility(View.GONE);
-				/*RelativeLayout layout_layout_type = (RelativeLayout)findViewById(R.id.layout_layout_modi);
+				RelativeLayout layout_layout_type = (RelativeLayout)findViewById(R.id.layout_layout_modi);
 				layout_layout_type.setVisibility(View.GONE);
-				*/
 				iv_setting_other_msg.setVisibility(View.GONE);
 				tv_setting_about.setTextColor(0xffdafffc);
 				tv_setting_other.setTextColor(0xffdafffc);
@@ -1171,7 +1178,8 @@ public class SettingActivity extends Activity {
 				ShowNetworkInfo();
 			}
 		});
-		
+		*/
+		/*
 		tv_setting_ap = (MyTextView)this.findViewById(R.id.setting_tv_setting_ap);
 		tv_setting_ap.setTextColor(0xffdafffc);
 		tv_setting_ap.setGravity(Gravity.CENTER);
@@ -1189,10 +1197,8 @@ public class SettingActivity extends Activity {
 				RelativeLayout layout_apset = (RelativeLayout)findViewById(R.id.layout_apset);
 				layout_apset.setVisibility(View.GONE);
 				lv_app_list.setVisibility(View.GONE);
-				/*
 				RelativeLayout layout_layout_type = (RelativeLayout)findViewById(R.id.layout_layout_modi);
 				layout_layout_type.setVisibility(View.GONE);
-				*/
 				iv_setting_other_msg.setVisibility(View.GONE);
 				tv_setting_about.setTextColor(0xffdafffc);
 				tv_setting_other.setTextColor(0xffdafffc);
@@ -1214,7 +1220,7 @@ public class SettingActivity extends Activity {
 				ShowApInfo();
 			}
 		});
-		
+		*/
 		tv_setting_app = (MyTextView)this.findViewById(R.id.setting_tv_setting_app);
 		tv_setting_app.setTextColor(0xffdafffc);
 		tv_setting_app.setGravity(Gravity.CENTER);
@@ -1227,10 +1233,10 @@ public class SettingActivity extends Activity {
 				layout_wifi.setVisibility(View.GONE);
 				LinearLayout layout_system = (LinearLayout)findViewById(R.id.setting_layout_system_info);
 				layout_system.setVisibility(View.GONE);
-				RelativeLayout layout_ipset = (RelativeLayout)findViewById(R.id.layout_ipset);
-				layout_ipset.setVisibility(View.GONE);
-				RelativeLayout layout_apset = (RelativeLayout)findViewById(R.id.layout_apset);
-				layout_apset.setVisibility(View.GONE);
+				//RelativeLayout layout_ipset = (RelativeLayout)findViewById(R.id.layout_ipset);
+				//layout_ipset.setVisibility(View.GONE);
+				//RelativeLayout layout_apset = (RelativeLayout)findViewById(R.id.layout_apset);
+				//layout_apset.setVisibility(View.GONE);
 				lv_app_list.setVisibility(View.GONE);
 				/*
 				RelativeLayout layout_layout_type = (RelativeLayout)findViewById(R.id.layout_layout_modi);
@@ -1238,13 +1244,13 @@ public class SettingActivity extends Activity {
 				*/
 				iv_setting_other_msg.setVisibility(View.GONE);
 				tv_setting_about.setTextColor(0xffdafffc);
-				tv_setting_other.setTextColor(0xffdafffc);
+				//tv_setting_other.setTextColor(0xffdafffc);
 				tv_setting_network.setTextColor(0xffdafffc);
 				tv_setting_system.setTextColor(0xffdafffc);
-				tv_setting_ap.setTextColor(0xffdafffc);
+//				tv_setting_ap.setTextColor(0xffdafffc);
 				tv_setting_app.setTextColor(0xffdafffc);
 				//tv_setting_layout_type.setTextColor(0xffdafffc);
-				
+				tv_setting_systemconfig.setTextColor(0xffdafffc);
 				if(MyVar.SYSTEM_LAYOUT_TYPE==0){
 					iv_setting_ico_bg.InitSize(0, 213+114*3, 420, 114);
 				}else{
@@ -1309,10 +1315,10 @@ public class SettingActivity extends Activity {
 				layout_wifi.setVisibility(View.GONE);
 				LinearLayout layout_system = (LinearLayout)findViewById(R.id.setting_layout_system_info);
 				layout_system.setVisibility(View.GONE);
-				RelativeLayout layout_ipset = (RelativeLayout)findViewById(R.id.layout_ipset);
-				layout_ipset.setVisibility(View.GONE);
-				RelativeLayout layout_apset = (RelativeLayout)findViewById(R.id.layout_apset);
-				layout_apset.setVisibility(View.GONE);
+				//RelativeLayout layout_ipset = (RelativeLayout)findViewById(R.id.layout_ipset);
+				//layout_ipset.setVisibility(View.GONE);
+				//RelativeLayout layout_apset = (RelativeLayout)findViewById(R.id.layout_apset);
+				//layout_apset.setVisibility(View.GONE);
 				lv_app_list.setVisibility(View.GONE);
 				/*
 				RelativeLayout layout_layout_type = (RelativeLayout)findViewById(R.id.layout_layout_modi);
@@ -1320,13 +1326,13 @@ public class SettingActivity extends Activity {
 				*/
 				iv_setting_other_msg.setVisibility(View.GONE);
 				tv_setting_about.setTextColor(0xffdafffc);
-				tv_setting_other.setTextColor(0xffdafffc);
+//				tv_setting_other.setTextColor(0xffdafffc);
 				tv_setting_network.setTextColor(0xffdafffc);
 				tv_setting_system.setTextColor(0xffdafffc);
-				tv_setting_ap.setTextColor(0xffdafffc);
+//				tv_setting_ap.setTextColor(0xffdafffc);
 				tv_setting_app.setTextColor(0xffdafffc);
 				//tv_setting_layout_type.setTextColor(0xffdafffc);
-				
+				tv_setting_systemconfig.setTextColor(0xffdafffc);
 				if(MyVar.SYSTEM_LAYOUT_TYPE==0){
 					iv_setting_ico_bg.InitSize(0, 213+114*5, 420, 114);
 				}else{
@@ -1350,10 +1356,10 @@ public class SettingActivity extends Activity {
 				layout_wifi.setVisibility(View.GONE);
 				LinearLayout layout_system = (LinearLayout)findViewById(R.id.setting_layout_system_info);
 				layout_system.setVisibility(View.GONE);
-				RelativeLayout layout_ipset = (RelativeLayout)findViewById(R.id.layout_ipset);
-				layout_ipset.setVisibility(View.GONE);
-				RelativeLayout layout_apset = (RelativeLayout)findViewById(R.id.layout_apset);
-				layout_apset.setVisibility(View.GONE);
+				//RelativeLayout layout_ipset = (RelativeLayout)findViewById(R.id.layout_ipset);
+				//layout_ipset.setVisibility(View.GONE);
+				//RelativeLayout layout_apset = (RelativeLayout)findViewById(R.id.layout_apset);
+				//layout_apset.setVisibility(View.GONE);
 				lv_app_list.setVisibility(View.GONE);
 				/*
 				RelativeLayout layout_layout_type = (RelativeLayout)findViewById(R.id.layout_layout_modi);
@@ -1361,10 +1367,10 @@ public class SettingActivity extends Activity {
 				*/
 				iv_setting_other_msg.setVisibility(View.GONE);
 				tv_setting_about.setTextColor(0xffdafffc);
-				tv_setting_other.setTextColor(0xffdafffc);
+//				tv_setting_other.setTextColor(0xffdafffc);
 				tv_setting_network.setTextColor(0xffdafffc);
 				tv_setting_system.setTextColor(0xffdafffc);
-				tv_setting_ap.setTextColor(0xffdafffc);
+//				tv_setting_ap.setTextColor(0xffdafffc);
 				tv_setting_app.setTextColor(0xffdafffc);
 				//tv_setting_layout_type.setTextColor(0xffdafffc);
 
@@ -1387,16 +1393,16 @@ public class SettingActivity extends Activity {
 			iv_setting_ico_bg.InitSize(0, y, 287, 114);
 			iv_setting_system_ico.InitSize(36, y+32,58, 49);
 			iv_setting_network_ico.InitSize(36, y+114+32, 58, 49);
-			iv_setting_other_ico.InitSize(36, y+114*2+32, 58, 49);
-			iv_setting_ap_ico.InitSize(36, y+114*3+32, 58, 49);
+			//iv_setting_other_ico.InitSize(36, y+114*2+32, 58, 49);
+			//iv_setting_ap_ico.InitSize(36, y+114*3+32, 58, 49);
 			iv_setting_app_ico.InitSize(36, y+114*3+32, 58, 49);
 			//iv_setting_layout_type_ico.InitSize(36, y+114*4+32, 58, 49);
 			iv_setting_about_ico.InitSize(36, y+114*5+32, 58, 49);
 			iv_setting_systemconfig_ico.InitSize(36,y+114*4+32,58,49);
 			tv_setting_system.InitSize(0, y, 287, 114,34);
 			tv_setting_network.InitSize(0, y+114, 287, 114,34);
-			tv_setting_other.InitSize(0, y+114*2, 287, 114,34);
-			tv_setting_ap.InitSize(0, y+114*3, 287, 114,34);
+			//tv_setting_other.InitSize(0, y+114*2, 287, 114,34);
+			//tv_setting_ap.InitSize(0, y+114*3, 287, 114,34);
 			tv_setting_app.InitSize(0, y+114*3, 287, 114,34);
 			//tv_setting_layout_type.InitSize(0, y+114*4, 287, 114,34);
 			tv_setting_about.InitSize(0, y+114*5, 287, 114,34);
@@ -1407,16 +1413,16 @@ public class SettingActivity extends Activity {
 			iv_setting_ico_bg.InitSize(0, y, 420, 114);
 			iv_setting_system_ico.InitSize(96, y+32,58, 49);
 			iv_setting_network_ico.InitSize(96, y+114+32, 58, 49);
-			iv_setting_other_ico.InitSize(96, y+114*2+32, 58, 49);
-			iv_setting_ap_ico.InitSize(96, y+114*3+32, 58, 49);
+//			iv_setting_other_ico.InitSize(96, y+114*2+32, 58, 49);
+//			iv_setting_ap_ico.InitSize(96, y+114*3+32, 58, 49);
 			iv_setting_app_ico.InitSize(96, y+114*3+32, 58, 49);
 			//iv_setting_layout_type_ico.InitSize(96, y+114*4+32, 58, 49);
 			iv_setting_about_ico.InitSize(96, y+114*5+32, 58, 49);
 			iv_setting_systemconfig_ico.InitSize(96, y+114*4+32, 58, 49);
 			tv_setting_system.InitSize(0, y, 420, 114,34);
 			tv_setting_network.InitSize(0, y+114, 420, 114,34);
-			tv_setting_other.InitSize(0, y+114*2, 420, 114,34);
-			tv_setting_ap.InitSize(0, y+114*3, 420, 114,34);
+//			tv_setting_other.InitSize(0, y+114*2, 420, 114,34);
+//			tv_setting_ap.InitSize(0, y+114*3, 420, 114,34);
 			tv_setting_app.InitSize(0, y+114*3, 420, 114,34);
 			//tv_setting_layout_type.InitSize(0, y+114*4, 420, 114,34);
 			tv_setting_about.InitSize(0, y+114*5, 420, 114,34);
@@ -1496,7 +1502,7 @@ public class SettingActivity extends Activity {
 							@Override
 							public void onClick(View arg0) {
 								SystemVar.ap_enable = false;
-								StopAp();
+								//StopAp();
 								wifi_manager.setWifiEnabled(true);
 								tv_wifi_status_text.setText("正在打开 WI-FI...");
 								tv_wifi_status_text.setVisibility(View.VISIBLE);
@@ -1953,6 +1959,7 @@ public class SettingActivity extends Activity {
             return position;
         }
 	}
+	/*
 	private void ShowNetworkInfo(){
 		//有线信息显示
 		if(SystemVar.eth_dhcp==true){
@@ -2032,8 +2039,9 @@ public class SettingActivity extends Activity {
         	}            
         }  
 	}
-	
+	*/
 	//显示AP信息
+	/*
 	private void ShowApInfo(){
 		et_ap_ssid.setText(SystemVar.ap_ssid);
 		et_ap_password.setText(SystemVar.ap_pwd);
@@ -2042,7 +2050,7 @@ public class SettingActivity extends Activity {
 	private void RefreNetworkInfo(){
 		MyClass.SendMessageDelay(MyVar.set_handler, 0x1000, 2000);
 	}
-	
+	*/
 	private void LoadApps() {
         Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
         mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);

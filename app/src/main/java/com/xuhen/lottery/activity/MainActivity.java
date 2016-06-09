@@ -79,9 +79,10 @@ public class MainActivity extends Activity {
   		MyClass.PrintLog("orientation:"+getRequestedOrientation()+",width="+MyVar.GetScreenWidth()+",height="+MyVar.GetScreenHeight());
   		//管理activity
   		GlobalApplication.getInstance().AddActivity(this);
-        ActivityManager am = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
-        MyClass.PrintInfoLog("max memory:"+am.getLargeMemoryClass()+"M");       
-        if(IpAddressSet.GetLayoutType()==1){
+		ActivityManager am = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+		MyClass.PrintInfoLog("max memory:"+am.getLargeMemoryClass()+"M");
+
+		if(this.getScreenLayout() == 1){
   			MyVar.SYSTEM_LAYOUT_TYPE = 1;
   			if(getRequestedOrientation()!=ActivityInfo.SCREEN_ORIENTATION_PORTRAIT||MyVar.GetScreenWidth()>MyVar.GetScreenHeight()){
   				setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -90,10 +91,12 @@ public class MainActivity extends Activity {
   			MyVar.SYSTEM_LAYOUT_TYPE = 0;
   			if(getRequestedOrientation()!=ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE||MyVar.GetScreenWidth()<MyVar.GetScreenHeight()){
   				//setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-  				//setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-  				if(MyVar.GetScreenWidth()<MyVar.GetScreenHeight()){
+  				setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+  				/*
+				if(MyVar.GetScreenWidth()<MyVar.GetScreenHeight()){
   					MyVar.SetScreenSize(MyVar.GetScreenHeight(), MyVar.GetScreenWidth(), MyVar.GetScaledDensity());
   				}
+  				*/
   			}
   		}
   		MyClass.PrintLog("MyVar.SYSTEM_LAYOUT_TYPE="+MyVar.SYSTEM_LAYOUT_TYPE);
@@ -151,10 +154,22 @@ public class MainActivity extends Activity {
       	MyVar.CURRENT_PAGE_ID = 1;
       	ProgramInit();
       	
-      	String str = IpAddressSet.GetGateWay(IpAddressSet.WLAN0);
+      	//String str = IpAddressSet.GetGateWay(IpAddressSet.WLAN0);
       	MyVar.CURRENT_PAGE_ID = 1;
 	}
-	
+	/*
+		获取系统存放的屏幕方向
+	 */
+	private int getScreenLayout(){
+		int rtn = 0;
+		Configuration mConfiguration = this.getResources().getConfiguration(); //获取设置的配置信息
+		int ori = mConfiguration.orientation ; //获取屏幕方向
+		if(ori == mConfiguration.ORIENTATION_PORTRAIT){
+			rtn = 1;
+		}
+		return rtn;
+	}
+
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		if(newConfig.orientation == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT){
@@ -262,6 +277,7 @@ public class MainActivity extends Activity {
 		        	if(MyVar.main_handler.hasMessages(0x1000)==true){
 		        		MyClass.RemoveMessage(MyVar.main_handler, 0x1000);
 		        	}
+					/*
 		        	//在这里设置WIFI的静态IP
 		        	if(SystemVar.wifi_dhcp==false){
 						IpAddressSet.SetIpAddress(IpAddressSet.WLAN0, SystemVar.wifi_ip, SystemVar.wifi_netmask);
@@ -278,6 +294,7 @@ public class MainActivity extends Activity {
 		        	}else{
 		        		IpAddressSet.SetAutoDhcp(IpAddressSet.ETH0);
 		        	}
+		        	*/
 		    		//无账号保存的用户登录
 		        	if(MyVar.login_flag==false){
 		        		UserLogin();
@@ -350,6 +367,7 @@ public class MainActivity extends Activity {
         	if(MyVar.main_handler.hasMessages(0x1000)==true){
         		MyClass.RemoveMessage(MyVar.main_handler, 0x1000);
         	}
+			/*
         	//在这里设置WIFI的静态IP
         	if(SystemVar.wifi_dhcp==false){
 				IpAddressSet.SetIpAddress(IpAddressSet.WLAN0, SystemVar.wifi_ip, SystemVar.wifi_netmask);
@@ -366,6 +384,7 @@ public class MainActivity extends Activity {
         	}else{
         		IpAddressSet.SetAutoDhcp(IpAddressSet.ETH0);
         	}
+        	*/
     		//无账号保存的用户登录
         	if(MyVar.login_flag==false){
         		UserLogin();

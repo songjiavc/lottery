@@ -1,5 +1,10 @@
 package com.xuhen.lottery.common;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -7,6 +12,7 @@ import com.xuhen.lottery.activity.AppActivity;
 import com.xuhen.lottery.activity.MainActivity;
 import com.xuhen.lottery.activity.SettingActivity;
 import com.xuhen.lottery.activity.UserActivity;
+import com.xuhen.lottery.cls.Http;
 import com.xuhen.lottery.cls.IpAddressSet;
 import com.xuhen.lottery.view.CustomDialog;
 
@@ -1496,7 +1502,7 @@ Y: 0 1 2 3 4 5 6 7 8 9 10
 			@Override
 			public void run() {
 				MyClass.SendMessageDelay(handler, msg_id, 10000);
-				String str_ret = IpAddressSet.GetHttp(url);
+				String str_ret = getContentByUrl(url);
 				MyClass.RemoveMessage(handler, msg_id);
 				if(str_ret==null||"ERROR".equals(str_ret)==true){
 					MyClass.SendMessage(handler, msg_id, "ERROR");
@@ -1508,7 +1514,28 @@ Y: 0 1 2 3 4 5 6 7 8 9 10
 		};
 		th.start();
 	}
-	
+	public static String getContentByUrl(String str_url) {
+		String str_ret = "ERROR";
+		HttpGet hg = null;
+		try {
+			hg = new HttpGet(str_url.trim());
+		} catch(Exception e) {
+			e.printStackTrace();
+			return str_ret;
+		}
+		DefaultHttpClient client = new DefaultHttpClient();
+		//client.getParams().setParameter("http.connection.timeout", Integer.valueOf(0xfa0));
+		//client.getParams().setParameter("http.socket.timeout", Integer.valueOf(0xfa0));
+		try {
+			HttpResponse response = client.execute(hg);
+			return EntityUtils.toString(response.getEntity(), "utf-8");
+		} catch(ClientProtocolException e) {
+			PrintLog(" is a http url");
+		} catch(IOException e) {
+			PrintLog(" http io error");
+		}
+		return str_ret;
+	}
 	public static String GetStationId(){
 		if(MyVar.station_dto==null){
 			return null;
