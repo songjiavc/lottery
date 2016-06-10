@@ -10,7 +10,6 @@ import java.util.List;
 
 import com.baiyilin.lottery.R;
 import com.xuhen.lottery.activity.AppActivity.AppsAdapter;
-import com.xuhen.lottery.cls.IpAddressSet;
 import com.xuhen.lottery.common.GlobalApplication;
 import com.xuhen.lottery.common.MyClass;
 import com.xuhen.lottery.common.MyVar;

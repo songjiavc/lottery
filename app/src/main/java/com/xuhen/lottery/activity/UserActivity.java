@@ -28,7 +28,6 @@ import org.json.JSONObject;
 
 import com.baiyilin.lottery.R;
 import com.xuhen.lottery.cls.AudioPlayer;
-import com.xuhen.lottery.cls.IpAddressSet;
 import com.xuhen.lottery.cls.MyThread;
 import com.xuhen.lottery.common.GlobalApplication;
 import com.xuhen.lottery.common.MyClass;

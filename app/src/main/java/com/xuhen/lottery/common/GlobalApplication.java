@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import com.xuhen.lottery.cls.IpAddressSet;
 import com.xuhen.lottery.cls.MyThread;
 import com.xuhen.lottery.cls.MyUnCeHandler;
 

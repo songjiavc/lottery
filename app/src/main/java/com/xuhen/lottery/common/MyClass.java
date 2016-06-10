@@ -13,7 +13,6 @@ import com.xuhen.lottery.activity.MainActivity;
 import com.xuhen.lottery.activity.SettingActivity;
 import com.xuhen.lottery.activity.UserActivity;
 import com.xuhen.lottery.cls.Http;
-import com.xuhen.lottery.cls.IpAddressSet;
 import com.xuhen.lottery.view.CustomDialog;
 
 import android.app.Activity;
@@ -389,6 +388,7 @@ public class MyClass {
 		}
 		return mac.replaceAll(":", "");
 	}
+	/*
 	public static String GetBtMac(Context my_context){
 		String mac=null;
 		BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
@@ -402,7 +402,7 @@ public class MyClass {
 		}
 		return mac;
 	}
-	
+	*/
 	public static String Json2Sql(String str_json){
 		return str_json.replaceAll("\"", "&quot;");
 	}
