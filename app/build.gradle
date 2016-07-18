@@ -13,11 +13,23 @@ android {
     buildTypes {
         release {
             minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-project.txt'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 }
 
 dependencies {
     compile files('libs/Download.jar')
+    provided files(getLayoutLibPath())
+    compile 'com.google.android.gms:play-services-appindexing:8.1.0'
+
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+
+def getLayoutLibPath() {
+    return "${android.getSdkDirectory().getAbsolutePath()}" + "/platforms/" + android.compileSdkVersion + "/data/layoutlib.jar"
 }

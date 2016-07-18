@@ -1380,7 +1380,7 @@ public class SettingActivity extends Activity {
 				}
 				tv_setting_systemconfig.setTextColor(0xfffeee87);
 				Intent mIntent = new Intent(Settings.ACTION_DISPLAY_SETTINGS);
-				startActivityForResult( mIntent , 0);
+				startActivityForResult(mIntent,0x200);
 			}
 		});
 		
@@ -1429,7 +1429,8 @@ public class SettingActivity extends Activity {
 			iv_setting_other_msg.InitSize(470, 90, 576, 729);
 		}
 	}
-	
+
+
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if(MyClass.SetKeyDown(keyCode, event)==true){

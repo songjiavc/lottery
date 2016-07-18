@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.baiyilin.lottery"
-    android:versionCode="2"
-    android:versionName="LotteryV3" >
+    android:versionCode="3"
+    android:versionName="LotteryV4" >
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -57,7 +57,11 @@
             android:name="com.xuhen.lottery.activity.SettingActivity"
             android:label="@string/title_activity_setting"
             android:configChanges="orientation|screenSize" >
-        </activity>
+        </activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
     </application>
 </manifest>

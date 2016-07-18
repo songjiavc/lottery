@@ -9,8 +9,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.os.SystemProperties;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -25,6 +27,9 @@ import android.view.WindowManager;
 import android.widget.AbsoluteLayout;
 
 import com.baiyilin.lottery.R;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.xuhen.lottery.common.GlobalApplication;
 import com.xuhen.lottery.common.MyClass;
 import com.xuhen.lottery.common.MyVar;
@@ -43,135 +48,167 @@ import java.util.Locale;
 public class MainActivity extends Activity {
 	//重要数据,一直保存
 	private static boolean init_flag = false;
-	private static JSONObject json_user_list = null; 
+	private static JSONObject json_user_list = null;
 	private static Handler my_handler = null;
 
 	//重进首页时恢复	
-	private CustomDialog dlg = null;	
+	private CustomDialog dlg = null;
 	private AppListAdapter listItemAdapter = null;
 	private MyListView lv_guest_list = null;
-	private BroadcastReceiver networkReceiver = null;//网络连接管理	
-	
+	private BroadcastReceiver networkReceiver = null;//网络连接管理
+	/**
+	 * ATTENTION: This was auto-generated to implement the App Indexing API.
+	 * See https://g.co/AppIndexing/AndroidStudio for more information.
+	 */
+	private GoogleApiClient client;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Init();
+		// ATTENTION: This was auto-generated to implement the App Indexing API.
+		// See https://g.co/AppIndexing/AndroidStudio for more information.
+		client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 	}
-	
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB) private void Init(){
-		//获取屏幕的高度和宽读
-  		String dpi=null;
-  		Display display = getWindowManager().getDefaultDisplay();
-  		DisplayMetrics dm = new DisplayMetrics();
-  		@SuppressWarnings("rawtypes")
-  		Class c;
-  		try {
-  			c = Class.forName("android.view.Display");
-  			@SuppressWarnings("unchecked")
-  			Method method = c.getMethod("getRealMetrics",DisplayMetrics.class);
-  			method.invoke(display, dm);
-  			MyVar.SetScreenSize(dm.widthPixels, dm.heightPixels,dm.scaledDensity);
-  		}catch(Exception e){
-  		    e.printStackTrace();
-  		    MyVar.SetScreenSize(dm.widthPixels, dm.heightPixels,dm.scaledDensity);
-  		}
-  		MyClass.PrintLog("orientation:"+getRequestedOrientation()+",width="+MyVar.GetScreenWidth()+",height="+MyVar.GetScreenHeight());
-  		//管理activity
-  		GlobalApplication.getInstance().AddActivity(this);
-		ActivityManager am = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
-		MyClass.PrintInfoLog("max memory:"+am.getLargeMemoryClass()+"M");
 
-		if(this.getScreenLayout() == 1){
-  			MyVar.SYSTEM_LAYOUT_TYPE = 1;
-  			if(getRequestedOrientation()!=ActivityInfo.SCREEN_ORIENTATION_PORTRAIT||MyVar.GetScreenWidth()>MyVar.GetScreenHeight()){
-  				setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-  			}
-  		}else{
-  			MyVar.SYSTEM_LAYOUT_TYPE = 0;
-  			if(getRequestedOrientation()!=ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE||MyVar.GetScreenWidth()<MyVar.GetScreenHeight()){
-  				//setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-  				setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-  				/*
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	private void Init() {
+		//获取屏幕的高度和宽读
+		String dpi = null;
+		Display display = getWindowManager().getDefaultDisplay();
+		DisplayMetrics dm = new DisplayMetrics();
+		@SuppressWarnings("rawtypes")
+		Class c;
+		try {
+			c = Class.forName("android.view.Display");
+			@SuppressWarnings("unchecked")
+			Method method = c.getMethod("getRealMetrics", DisplayMetrics.class);
+			method.invoke(display, dm);
+			MyVar.SetScreenSize(dm.widthPixels, dm.heightPixels, dm.scaledDensity);
+		} catch (Exception e) {
+			e.printStackTrace();
+			MyVar.SetScreenSize(dm.widthPixels, dm.heightPixels, dm.scaledDensity);
+		}
+		MyClass.PrintLog("orientation:" + getRequestedOrientation() + ",width=" + MyVar.GetScreenWidth() + ",height=" + MyVar.GetScreenHeight());
+		//管理activity
+		GlobalApplication.getInstance().AddActivity(this);
+		ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+		MyClass.PrintInfoLog("max memory:" + am.getLargeMemoryClass() + "M");
+
+		if (this.getScreenLayout() == 1) {
+			MyVar.SYSTEM_LAYOUT_TYPE = 1;
+			if (getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT || MyVar.GetScreenWidth() > MyVar.GetScreenHeight()) {
+				setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+			}
+		} else {
+			MyVar.SYSTEM_LAYOUT_TYPE = 0;
+			if (getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE || MyVar.GetScreenWidth() < MyVar.GetScreenHeight()) {
+				//setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+				setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
 				if(MyVar.GetScreenWidth()<MyVar.GetScreenHeight()){
   					MyVar.SetScreenSize(MyVar.GetScreenHeight(), MyVar.GetScreenWidth(), MyVar.GetScaledDensity());
   				}
-  				*/
-  			}
-  		}
-  		MyClass.PrintLog("MyVar.SYSTEM_LAYOUT_TYPE="+MyVar.SYSTEM_LAYOUT_TYPE);
-        //屏幕常亮
-      	getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-      	setContentView(R.layout.activity_main);
-      	if(MyVar.SYSTEM_LAYOUT_TYPE==0){
-      		AbsoluteLayout layout = (AbsoluteLayout)this.findViewById(R.id.layout_main);
-        	layout.setBackgroundResource(R.drawable.load_v);
-      	}
-      	//应对错误的竖屏标识
-      	if(MyVar.SYSTEM_LAYOUT_TYPE==1&&MyVar.GetScreenWidth()>=MyVar.GetScreenHeight()){
-      		AbsoluteLayout layout_main = (AbsoluteLayout)this.findViewById(R.id.layout_main);
-      		layout_main.setBackgroundColor(0xff000000);
-      		layout_main.invalidate();
-      		return;
-  		}  
-    	//应对错误的横屏标识
-      	if(MyVar.SYSTEM_LAYOUT_TYPE==0&&MyVar.GetScreenWidth()<=MyVar.GetScreenHeight()){
-      		AbsoluteLayout layout_main = (AbsoluteLayout)this.findViewById(R.id.layout_main);
-      		layout_main.setBackgroundColor(0xff000000);
-      		layout_main.invalidate();
-      		return;
-  		} 
-      	//输出APK版本号
-        MyClass.PrintInfoLog("version:"+MyClass.GetCurrentApkVersion(this.getBaseContext()));
-        
-  		//创建程序根目录
-  		File file = new File(MyVar.APK_ROOT_PATH);
-  		if(file.exists() == false){
-  			if(file.mkdirs()==false){
-  				MyClass.ShowWindowText(this.getBaseContext(), "目录'"+MyVar.APK_ROOT_PATH+"'创建失败!");
-  				this.finish();
-  				return;
-  			}
-  		}
-  		MyClass.CreateDir(MyVar.SHARE_DATA_DIR);
-		
-		MyVar.main_handler = new Handler(){
+
+			}
+		}
+		MyClass.PrintLog("MyVar.SYSTEM_LAYOUT_TYPE=" + MyVar.SYSTEM_LAYOUT_TYPE);
+		//屏幕常亮
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+		setContentView(R.layout.activity_main);
+		if (MyVar.SYSTEM_LAYOUT_TYPE == 0) {
+			AbsoluteLayout layout = (AbsoluteLayout) this.findViewById(R.id.layout_main);
+			layout.setBackgroundResource(R.drawable.load_v);
+		}
+		//应对错误的竖屏标识
+		if (MyVar.SYSTEM_LAYOUT_TYPE == 1 && MyVar.GetScreenWidth() >= MyVar.GetScreenHeight()) {
+			AbsoluteLayout layout_main = (AbsoluteLayout) this.findViewById(R.id.layout_main);
+			layout_main.setBackgroundColor(0xff000000);
+			layout_main.invalidate();
+			return;
+		}
+		//应对错误的横屏标识
+		if (MyVar.SYSTEM_LAYOUT_TYPE == 0 && MyVar.GetScreenWidth() <= MyVar.GetScreenHeight()) {
+			AbsoluteLayout layout_main = (AbsoluteLayout) this.findViewById(R.id.layout_main);
+			layout_main.setBackgroundColor(0xff000000);
+			layout_main.invalidate();
+			return;
+		}
+		//输出APK版本号
+		MyClass.PrintInfoLog("version:" + MyClass.GetCurrentApkVersion(this.getBaseContext()));
+
+		//创建程序根目录
+		File file = new File(MyVar.APK_ROOT_PATH);
+		if (file.exists() == false) {
+			if (file.mkdirs() == false) {
+				MyClass.ShowWindowText(this.getBaseContext(), "目录'" + MyVar.APK_ROOT_PATH + "'创建失败!");
+				this.finish();
+				return;
+			}
+		}
+		MyClass.CreateDir(MyVar.SHARE_DATA_DIR);
+
+		MyVar.main_handler = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
-				if(msg.what==0x1000){
+				if (msg.what == 0x1000) {
 					ShowNetworkConnect();
 				}
 				super.handleMessage(msg);
-			}			
+			}
 		};
-		
+
 		Thread.currentThread().setName("MainActivity");
 		//获取设备网络状
 		//检查APP参数设置是否正确
-		CheckGlobalStaticVars();	
+		CheckGlobalStaticVars();
 		//设置程序运行标志
-		MyVar.SetProRunFlag(true);		
-      	MyVar.CURRENT_PAGE_ID = 1;
-      	ProgramInit();
-      	
-      	//String str = IpAddressSet.GetGateWay(IpAddressSet.WLAN0);
-      	MyVar.CURRENT_PAGE_ID = 1;
+		MyVar.SetProRunFlag(true);
+		MyVar.CURRENT_PAGE_ID = 1;
+		ProgramInit();
+
+		//String str = IpAddressSet.GetGateWay(IpAddressSet.WLAN0);
+		MyVar.CURRENT_PAGE_ID = 1;
 	}
+
 	/*
 		获取系统存放的屏幕方向
 	 */
-	private int getScreenLayout(){
+	private int getScreenLayout() {
 		int rtn = 0;
-		Configuration mConfiguration = this.getResources().getConfiguration(); //获取设置的配置信息
-		int ori = mConfiguration.orientation ; //获取屏幕方向
-		if(ori == mConfiguration.ORIENTATION_PORTRAIT){
-			rtn = 1;
+//		String angle = SystemProperties.get("persist.sys.hwrotation");
+//		MyClass.PrintInfoLog("MainActiviy:String：angle",angle);
+		int angleInt = SystemProperties.getInt("persist.sys.hwrotation",0);
+		MyClass.PrintInfoLog("MainActiviy:Integer：angleInt",angleInt+"");
+//		Configuration mConfiguration = this.getResources().getConfiguration(); //获取设置的配置信息
+		//int aa = mConfiguration.getInt
+		//int ori = mConfiguration.orientation; //获取屏幕方向
+		if (angleInt == 90 || angleInt == 270) {
+			rtn = 0;
 		}
+
+		//int OrientationSetting = data.getIntExtra("setting", ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		return rtn;
 	}
+/*
+	private void setOrientation(Camera.Parameters parameters) {
+		// TODO: this needs pulled out into a model, or detected at the time of
+		// taking the picture
+		int orientation = this.getResources().getConfiguration().orientation;
+		int orientationValue = 0;
+		// TODO: this is over simplified
+		if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+			orientationValue = 90;
+		}
+
+		parameters.setRotation(orientationValue);
+		parameters.set("rotation", orientationValue);
+	}
+*/
 
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
-		if(newConfig.orientation == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT){
+		if (newConfig.orientation == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
 			MyClass.PrintLog("config change");
 			//开始重新启动
 			Init();
@@ -180,52 +217,52 @@ public class MainActivity extends Activity {
 		super.onConfigurationChanged(newConfig);
 	}
 
-	private String ipstring(int ip){
+	private String ipstring(int ip) {
 		String str_ip = "0.0.0.0";
-		int a=0,b=0,c=0,d=0;
-		a = (ip>>24)&0xff;
-		b = (ip>>16)&0xff;
-		c = (ip>>8)&0xff;
-		d = ip&0xff;
-		str_ip = String.format(Locale.ENGLISH,"%d.%d.%d.%d", d,c,b,a);
+		int a = 0, b = 0, c = 0, d = 0;
+		a = (ip >> 24) & 0xff;
+		b = (ip >> 16) & 0xff;
+		c = (ip >> 8) & 0xff;
+		d = ip & 0xff;
+		str_ip = String.format(Locale.ENGLISH, "%d.%d.%d.%d", d, c, b, a);
 		return str_ip;
 	}
-	
-	private void CheckGlobalStaticVars(){
-    	if(MyVar.assets_version<=15090901||MyVar.assets_version>=29123199){
-    		MyClass.ShowDlgWindow(MainActivity.this,"全局参数检查", "资源版本号设置出错");
-    		return;
-    	}
-    	if(MyVar.build_date<150909||MyVar.build_date>=301231){
-    		MyClass.ShowDlgWindow(MainActivity.this,"全局参数检查", "系统运行最低时间错误");
-    		return;
-    	}
-    }
-	
-	private void ProgramInit(){
-    	//防止这里代码多次运行
-		if(init_flag==false){
+
+	private void CheckGlobalStaticVars() {
+		if (MyVar.assets_version <= 15090901 || MyVar.assets_version >= 29123199) {
+			MyClass.ShowDlgWindow(MainActivity.this, "全局参数检查", "资源版本号设置出错");
+			return;
+		}
+		if (MyVar.build_date < 150909 || MyVar.build_date >= 301231) {
+			MyClass.ShowDlgWindow(MainActivity.this, "全局参数检查", "系统运行最低时间错误");
+			return;
+		}
+	}
+
+	private void ProgramInit() {
+		//防止这里代码多次运行
+		if (init_flag == false) {
 			//提示用户连接网络,在没有任何网络结果时显示网络问题
-        	if(MyVar.main_handler.hasMessages(0x1000)==false){
-        		MyClass.SendMessageDelay(MyVar.main_handler, 0x1000, 6000);
-        	}
+			if (MyVar.main_handler.hasMessages(0x1000) == false) {
+				MyClass.SendMessageDelay(MyVar.main_handler, 0x1000, 6000);
+			}
 			RegNetworkStatusEvent();
 			//读入配置文件
 			SystemVar.LoadCfg();
 			//获取设备UUID
-			MyClass.PrintInfoLog("uuid:"+SystemVar.uuid);
+			MyClass.PrintInfoLog("uuid:" + SystemVar.uuid);
 			init_flag = true;
 		}
-    }
-    
-    //显示用户没有连网
-	private void ShowNetworkConnect(){		//开启切换屏幕为竖屏  
+	}
+
+	//显示用户没有连网
+	private void ShowNetworkConnect() {        //开启切换屏幕为竖屏
 		//AbsoluteLayout layout_main = (AbsoluteLayout)this.findViewById(R.id.layout_main);
 		//layout_main.setBackgroundResource(R.drawable.load);
 		//layout_main.invalidate();
 		int width = 720;
-		int height = width*5/8;
-		if(dlg!=null){
+		int height = width * 5 / 8;
+		if (dlg != null) {
 			dlg.dismiss();
 			dlg = null;
 		}
@@ -236,13 +273,13 @@ public class MainActivity extends Activity {
 		dlg.SetMessage("检测到网络未连接,是否连接网络?");
 		dlg.SetMessageSize(30);
 		dlg.SetMessageGravity(Gravity.CENTER);
-		dlg.btn_ok.setOnClickListener(new OnClickListener() {			
+		dlg.btn_ok.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
 				MyClass.ShowSettingActivity(MyVar.CURRENT_PAGE_ID);
 			}
 		});
-		dlg.btn_cancel.setOnClickListener(new OnClickListener() {			
+		dlg.btn_cancel.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
 				dlg.dismiss();
@@ -250,34 +287,34 @@ public class MainActivity extends Activity {
 			}
 		});
 	}
-	
+
 	//注册网络状态监听
-	private void RegNetworkStatusEvent(){
+	private void RegNetworkStatusEvent() {
 		UnRegNetworkStatusEvent();
-		networkReceiver = new BroadcastReceiver(){
+		networkReceiver = new BroadcastReceiver() {
 			public void onReceive(Context arg0, Intent arg1) {
-				ConnectivityManager connectivityManager=(ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-		        NetworkInfo  mobNetInfo=connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-		        NetworkInfo  wifiNetInfo=connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-		        NetworkInfo  ethNetInfo=connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_ETHERNET);
-		        if(!mobNetInfo.isConnected()&&!wifiNetInfo.isConnected()&&!ethNetInfo.isConnected()) {
-		        	MyVar.SetNetworkStatusFlag(false);		        	
-		        	//提示用户连接网络
-		        	if(MyVar.main_handler.hasMessages(0x1000)==false){
-		        		MyClass.SendMessageDelay(MyVar.main_handler, 0x1000, 6000);
-		        	}		        	
-		        }else{
-		        	if(MyVar.GetNetWorkStatusFlag()==true){
-		        		return;
-		        	}
-		        	//设置网络状态
-		        	MyVar.SetNetworkStatusFlag(true);
-		        	//删除提示信息
-		        	if(MyVar.main_handler.hasMessages(0x1000)==true){
-		        		MyClass.RemoveMessage(MyVar.main_handler, 0x1000);
-		        	}
+				ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+				NetworkInfo mobNetInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+				NetworkInfo wifiNetInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+				NetworkInfo ethNetInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_ETHERNET);
+				if (!mobNetInfo.isConnected() && !wifiNetInfo.isConnected() && !ethNetInfo.isConnected()) {
+					MyVar.SetNetworkStatusFlag(false);
+					//提示用户连接网络
+					if (MyVar.main_handler.hasMessages(0x1000) == false) {
+						MyClass.SendMessageDelay(MyVar.main_handler, 0x1000, 6000);
+					}
+				} else {
+					if (MyVar.GetNetWorkStatusFlag() == true) {
+						return;
+					}
+					//设置网络状态
+					MyVar.SetNetworkStatusFlag(true);
+					//删除提示信息
+					if (MyVar.main_handler.hasMessages(0x1000) == true) {
+						MyClass.RemoveMessage(MyVar.main_handler, 0x1000);
+					}
 					/*
-		        	//在这里设置WIFI的静态IP
+					//在这里设置WIFI的静态IP
 		        	if(SystemVar.wifi_dhcp==false){
 						IpAddressSet.SetIpAddress(IpAddressSet.WLAN0, SystemVar.wifi_ip, SystemVar.wifi_netmask);
 						IpAddressSet.SetGateWay(IpAddressSet.WLAN0, SystemVar.wifi_gateway);
@@ -294,36 +331,36 @@ public class MainActivity extends Activity {
 		        		IpAddressSet.SetAutoDhcp(IpAddressSet.ETH0);
 		        	}
 		        	*/
-		    		//无账号保存的用户登录
-		        	if(MyVar.login_flag==false){
-		        		UserLogin();
-		        	}else{
-		        		MyClass.ShowAppActivity(MyVar.CURRENT_PAGE_ID);
-		        	}
-		        	GlobalApplication.getInstance().RemoveActivity(MainActivity.this);
-		        	finish();
-		        }		
-			}			
+					//无账号保存的用户登录
+					if (MyVar.login_flag == false) {
+						UserLogin();
+					} else {
+						MyClass.ShowAppActivity(MyVar.CURRENT_PAGE_ID);
+					}
+					GlobalApplication.getInstance().RemoveActivity(MainActivity.this);
+					finish();
+				}
+			}
 		};
 		IntentFilter networkReceiverFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
 		GlobalApplication.getInstance().registerReceiver(networkReceiver, networkReceiverFilter);
 	}
-	
+
 	//用户登录
-	private void UserLogin(){
+	private void UserLogin() {
 		MyClass.PrintLog("UserLogin");
 		//未保存登录信息
-		if("".equals(SystemVar.username)==true||"".equals(SystemVar.password)==true){
-        	MyClass.ShowUserActivity(MyVar.CURRENT_PAGE_ID);
-        	return;
-		}else{//已保存的用户，需要保存用户信息
+		if ("".equals(SystemVar.username) == true || "".equals(SystemVar.password) == true) {
+			MyClass.ShowUserActivity(MyVar.CURRENT_PAGE_ID);
+			return;
+		} else {//已保存的用户，需要保存用户信息
 			MyClass.ShowUserActivity(MyVar.CURRENT_PAGE_ID);
 		}
 	}
-	
+
 	//取消注册网络监控
-	private void UnRegNetworkStatusEvent(){
-		if(networkReceiver!=null){
+	private void UnRegNetworkStatusEvent() {
+		if (networkReceiver != null) {
 			GlobalApplication.getInstance().unregisterReceiver(networkReceiver);
 			networkReceiver = null;
 		}
@@ -333,39 +370,39 @@ public class MainActivity extends Activity {
 	protected void onResume() {
 		MyClass.PrintLog("MainActivity->onResume");
 		//应对错误的竖屏标识
-      	if(MyVar.SYSTEM_LAYOUT_TYPE==1&&MyVar.GetScreenWidth()>=MyVar.GetScreenHeight()){
-      		MyClass.PrintErrorLog("MainActivity->onResume->exit");
-      		super.onResume();
-      		return;
-  		}
-      	if(MyVar.SYSTEM_LAYOUT_TYPE==0&&MyVar.GetScreenWidth()<=MyVar.GetScreenHeight()){
-      		MyClass.PrintErrorLog("MainActivity->onResume->exit");
-      		super.onResume();
-      		return;
-  		}
-		if(MyVar.main_handler!=null&&MyVar.main_handler.hasMessages(0x1000)==false){
-    		MyClass.SendMessageDelay(MyVar.main_handler, 0x1000, 6000);
-    	}
-		ConnectivityManager connectivityManager=(ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo  mobNetInfo=connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-        NetworkInfo  wifiNetInfo=connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-        NetworkInfo  ethNetInfo=connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_ETHERNET);
-        if(!mobNetInfo.isConnected()&&!wifiNetInfo.isConnected()&&!ethNetInfo.isConnected()) {
-        	MyVar.SetNetworkStatusFlag(false);		        	
-        	//提示用户连接网络
-        	if(MyVar.main_handler.hasMessages(0x1000)==false){
-        		MyClass.SendMessageDelay(MyVar.main_handler, 0x1000, 6000);
-        	}		        	
-        }else{
-        	if(MyVar.GetNetWorkStatusFlag()==true){
-        		return;
-        	}
-        	//设置网络状态
-        	MyVar.SetNetworkStatusFlag(true);
-        	//删除提示信息
-        	if(MyVar.main_handler.hasMessages(0x1000)==true){
-        		MyClass.RemoveMessage(MyVar.main_handler, 0x1000);
-        	}
+		if (MyVar.SYSTEM_LAYOUT_TYPE == 1 && MyVar.GetScreenWidth() >= MyVar.GetScreenHeight()) {
+			MyClass.PrintErrorLog("MainActivity->onResume->exit");
+			super.onResume();
+			return;
+		}
+		if (MyVar.SYSTEM_LAYOUT_TYPE == 0 && MyVar.GetScreenWidth() <= MyVar.GetScreenHeight()) {
+			MyClass.PrintErrorLog("MainActivity->onResume->exit");
+			super.onResume();
+			return;
+		}
+		if (MyVar.main_handler != null && MyVar.main_handler.hasMessages(0x1000) == false) {
+			MyClass.SendMessageDelay(MyVar.main_handler, 0x1000, 6000);
+		}
+		ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo mobNetInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+		NetworkInfo wifiNetInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+		NetworkInfo ethNetInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_ETHERNET);
+		if (!mobNetInfo.isConnected() && !wifiNetInfo.isConnected() && !ethNetInfo.isConnected()) {
+			MyVar.SetNetworkStatusFlag(false);
+			//提示用户连接网络
+			if (MyVar.main_handler.hasMessages(0x1000) == false) {
+				MyClass.SendMessageDelay(MyVar.main_handler, 0x1000, 6000);
+			}
+		} else {
+			if (MyVar.GetNetWorkStatusFlag() == true) {
+				return;
+			}
+			//设置网络状态
+			MyVar.SetNetworkStatusFlag(true);
+			//删除提示信息
+			if (MyVar.main_handler.hasMessages(0x1000) == true) {
+				MyClass.RemoveMessage(MyVar.main_handler, 0x1000);
+			}
 			/*
         	//在这里设置WIFI的静态IP
         	if(SystemVar.wifi_dhcp==false){
@@ -384,21 +421,21 @@ public class MainActivity extends Activity {
         		IpAddressSet.SetAutoDhcp(IpAddressSet.ETH0);
         	}
         	*/
-    		//无账号保存的用户登录
-        	if(MyVar.login_flag==false){
-        		UserLogin();
-        	}else{
-        		MyClass.ShowAppActivity(MyVar.CURRENT_PAGE_ID);
-        	}
-        	GlobalApplication.getInstance().RemoveActivity(this);
-        	this.finish();
-        }
+			//无账号保存的用户登录
+			if (MyVar.login_flag == false) {
+				UserLogin();
+			} else {
+				MyClass.ShowAppActivity(MyVar.CURRENT_PAGE_ID);
+			}
+			GlobalApplication.getInstance().RemoveActivity(this);
+			this.finish();
+		}
 		super.onResume();
 	}
-	
+
 	@Override
 	protected void onDestroy() {
-		if(dlg!=null){
+		if (dlg != null) {
 			dlg.dismiss();
 			dlg = null;
 		}
@@ -409,7 +446,7 @@ public class MainActivity extends Activity {
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if(MyClass.SetKeyDown(keyCode, event)==true){
+		if (MyClass.SetKeyDown(keyCode, event) == true) {
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
@@ -417,9 +454,49 @@ public class MainActivity extends Activity {
 
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
-		if(MyClass.SetKeyUp(keyCode,event)==true){
+		if (MyClass.SetKeyUp(keyCode, event) == true) {
 			return true;
 		}
 		return super.onKeyUp(keyCode, event);
-	}	
+	}
+
+	@Override
+	public void onStart() {
+		super.onStart();
+
+		// ATTENTION: This was auto-generated to implement the App Indexing API.
+		// See https://g.co/AppIndexing/AndroidStudio for more information.
+		client.connect();
+		Action viewAction = Action.newAction(
+				Action.TYPE_VIEW, // TODO: choose an action type.
+				"Main Page", // TODO: Define a title for the content shown.
+				// TODO: If you have web page content that matches this app activity's content,
+				// make sure this auto-generated web page URL is correct.
+				// Otherwise, set the URL to null.
+				Uri.parse("http://host/path"),
+				// TODO: Make sure this auto-generated app URL is correct.
+				Uri.parse("android-app://com.xuhen.lottery.activity/http/host/path")
+		);
+		AppIndex.AppIndexApi.start(client, viewAction);
+	}
+
+	@Override
+	public void onStop() {
+		super.onStop();
+
+		// ATTENTION: This was auto-generated to implement the App Indexing API.
+		// See https://g.co/AppIndexing/AndroidStudio for more information.
+		Action viewAction = Action.newAction(
+				Action.TYPE_VIEW, // TODO: choose an action type.
+				"Main Page", // TODO: Define a title for the content shown.
+				// TODO: If you have web page content that matches this app activity's content,
+				// make sure this auto-generated web page URL is correct.
+				// Otherwise, set the URL to null.
+				Uri.parse("http://host/path"),
+				// TODO: Make sure this auto-generated app URL is correct.
+				Uri.parse("android-app://com.xuhen.lottery.activity/http/host/path")
+		);
+		AppIndex.AppIndexApi.end(client, viewAction);
+		client.disconnect();
+	}
 }
