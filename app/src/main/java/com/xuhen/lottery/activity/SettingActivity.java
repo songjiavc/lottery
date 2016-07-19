@@ -1251,9 +1251,9 @@ public class SettingActivity extends Activity {
 				//tv_setting_layout_type.setTextColor(0xffdafffc);
 				tv_setting_systemconfig.setTextColor(0xffdafffc);
 				if(MyVar.SYSTEM_LAYOUT_TYPE==0){
-					iv_setting_ico_bg.InitSize(0, 213+114*3, 420, 114);
+					iv_setting_ico_bg.InitSize(0, 213+114*2, 420, 114);
 				}else{
-					iv_setting_ico_bg.InitSize(0, 213+114*3, 287, 114);
+					iv_setting_ico_bg.InitSize(0, 213+114*2, 287, 114);
 				}	
 				tv_setting_app.setTextColor(0xfffeee87);
 				
@@ -1333,9 +1333,9 @@ public class SettingActivity extends Activity {
 				//tv_setting_layout_type.setTextColor(0xffdafffc);
 				tv_setting_systemconfig.setTextColor(0xffdafffc);
 				if(MyVar.SYSTEM_LAYOUT_TYPE==0){
-					iv_setting_ico_bg.InitSize(0, 213+114*5, 420, 114);
+					iv_setting_ico_bg.InitSize(0, 213+114*4, 420, 114);
 				}else{
-					iv_setting_ico_bg.InitSize(0, 213+114*5, 287, 114);
+					iv_setting_ico_bg.InitSize(0, 213+114*4, 287, 114);
 				}	
 				tv_setting_about.setTextColor(0xfffeee87);
 				iv_setting_other_msg.setVisibility(View.VISIBLE);
@@ -1374,9 +1374,9 @@ public class SettingActivity extends Activity {
 				//tv_setting_layout_type.setTextColor(0xffdafffc);
 
 				if(MyVar.SYSTEM_LAYOUT_TYPE==0){
-					iv_setting_ico_bg.InitSize(0, 213+114*4, 420, 114);
+					iv_setting_ico_bg.InitSize(0, 213+114*3, 420, 114);
 				}else{
-					iv_setting_ico_bg.InitSize(0, 213+114*4, 287, 114);
+					iv_setting_ico_bg.InitSize(0, 213+114*3, 287, 114);
 				}
 				tv_setting_systemconfig.setTextColor(0xfffeee87);
 				Intent mIntent = new Intent(Settings.ACTION_DISPLAY_SETTINGS);
@@ -1394,18 +1394,18 @@ public class SettingActivity extends Activity {
 			iv_setting_network_ico.InitSize(36, y+114+32, 58, 49);
 			//iv_setting_other_ico.InitSize(36, y+114*2+32, 58, 49);
 			//iv_setting_ap_ico.InitSize(36, y+114*3+32, 58, 49);
-			iv_setting_app_ico.InitSize(36, y+114*3+32, 58, 49);
+			iv_setting_app_ico.InitSize(36, y+114*2+32, 58, 49);
 			//iv_setting_layout_type_ico.InitSize(36, y+114*4+32, 58, 49);
-			iv_setting_about_ico.InitSize(36, y+114*5+32, 58, 49);
-			iv_setting_systemconfig_ico.InitSize(36,y+114*4+32,58,49);
+			iv_setting_about_ico.InitSize(36, y+114*4+32, 58, 49);
+			iv_setting_systemconfig_ico.InitSize(36,y+114*3+32,58,49);
 			tv_setting_system.InitSize(0, y, 287, 114,34);
 			tv_setting_network.InitSize(0, y+114, 287, 114,34);
 			//tv_setting_other.InitSize(0, y+114*2, 287, 114,34);
 			//tv_setting_ap.InitSize(0, y+114*3, 287, 114,34);
-			tv_setting_app.InitSize(0, y+114*3, 287, 114,34);
+			tv_setting_app.InitSize(0, y+114*2, 287, 114,34);
 			//tv_setting_layout_type.InitSize(0, y+114*4, 287, 114,34);
-			tv_setting_about.InitSize(0, y+114*5, 287, 114,34);
-			tv_setting_systemconfig.InitSize(0,y+114*4,287,114,34);
+			tv_setting_about.InitSize(0, y+114*4, 287, 114,34);
+			tv_setting_systemconfig.InitSize(0,y+114*3,287,114,34);
 			iv_setting_other_msg.InitSize(383, 185, 576, 729);
 		}else{
 			iv_setting_message_bg.InitSize(420, 60, 1500, 1020);			
@@ -1414,18 +1414,18 @@ public class SettingActivity extends Activity {
 			iv_setting_network_ico.InitSize(96, y+114+32, 58, 49);
 //			iv_setting_other_ico.InitSize(96, y+114*2+32, 58, 49);
 //			iv_setting_ap_ico.InitSize(96, y+114*3+32, 58, 49);
-			iv_setting_app_ico.InitSize(96, y+114*3+32, 58, 49);
+			iv_setting_app_ico.InitSize(96, y+114*2+32, 58, 49);
 			//iv_setting_layout_type_ico.InitSize(96, y+114*4+32, 58, 49);
-			iv_setting_about_ico.InitSize(96, y+114*5+32, 58, 49);
-			iv_setting_systemconfig_ico.InitSize(96, y+114*4+32, 58, 49);
+			iv_setting_about_ico.InitSize(96, y+114*4+32, 58, 49);
+			iv_setting_systemconfig_ico.InitSize(96, y+114*3+32, 58, 49);
 			tv_setting_system.InitSize(0, y, 420, 114,34);
 			tv_setting_network.InitSize(0, y+114, 420, 114,34);
 //			tv_setting_other.InitSize(0, y+114*2, 420, 114,34);
 //			tv_setting_ap.InitSize(0, y+114*3, 420, 114,34);
-			tv_setting_app.InitSize(0, y+114*3, 420, 114,34);
+			tv_setting_app.InitSize(0, y+114*2, 420, 114,34);
 			//tv_setting_layout_type.InitSize(0, y+114*4, 420, 114,34);
-			tv_setting_about.InitSize(0, y+114*5, 420, 114,34);
-			tv_setting_systemconfig.InitSize(0, y+114*4, 420, 114,34);
+			tv_setting_about.InitSize(0, y+114*4, 420, 114,34);
+			tv_setting_systemconfig.InitSize(0, y+114*3, 420, 114,34);
 			iv_setting_other_msg.InitSize(470, 90, 576, 729);
 		}
 	}
