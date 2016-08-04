@@ -61,6 +61,7 @@ public class MyVar {
 	//服务器资源地址
 	public final static String APK_UPDATE_URL = "http://www.eoncn.com/app/update.php";
 	//app数据路径
+
 	public final static String APK_ROOT_PATH = Environment.getExternalStorageDirectory().getPath()+"/lottery/";
 	//共享文件夹
 	public final static String SHARE_DATA_DIR = APK_ROOT_PATH+"share/";

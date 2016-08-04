@@ -1,102 +1,43 @@
 package com.xuhen.lottery.activity;
 
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.lang.reflect.Method;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.SocketException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
-import org.json.JSONObject;
+import android.annotation.TargetApi;
+import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.DisplayMetrics;
+import android.view.Display;
+import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.WindowManager;
+import android.widget.AbsoluteLayout;
 
 import com.baiyilin.lottery.R;
-import com.xuhen.lottery.cls.AudioPlayer;
-
-import com.xuhen.lottery.cls.MyThread;
 import com.xuhen.lottery.common.GlobalApplication;
 import com.xuhen.lottery.common.MyClass;
 import com.xuhen.lottery.common.MyVar;
 import com.xuhen.lottery.common.SystemVar;
-import com.xuhen.lottery.view.CustomDialog;
 import com.xuhen.lottery.view.AppListAdapter;
-import com.xuhen.lottery.view.MyEditText;
+import com.xuhen.lottery.view.CustomDialog;
 import com.xuhen.lottery.view.MyListView;
-import com.xuhen.lottery.view.MyTextView;
 
+import org.json.JSONObject;
 
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.app.ActivityManager;
-import android.app.ActivityManager.RunningAppProcessInfo;
-import android.content.BroadcastReceiver;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.ServiceConnection;
-import android.content.pm.ActivityInfo;
-import android.content.res.AssetManager;
-import android.content.res.Configuration;
-import android.graphics.ImageFormat;
-import android.graphics.PixelFormat;
-import android.hardware.Camera;
-import android.hardware.Camera.PreviewCallback;
-import android.hardware.Camera.Size;
-import android.media.AudioFormat;
-import android.media.AudioManager;
-import android.media.AudioRecord;
-import android.media.AudioTrack;
-import android.media.MediaPlayer;
-import android.media.MediaPlayer.OnPreparedListener;
-import android.media.MediaRecorder;
-import android.media.audiofx.AcousticEchoCanceler;
-import android.net.ConnectivityManager;
-import android.net.LocalServerSocket;
-import android.net.LocalSocket;
-import android.net.LocalSocketAddress;
-import android.net.NetworkInfo;
-import android.net.Uri;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
-import android.os.Build;
-
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.IBinder;
-import android.os.Looper;
-import android.os.Message;
-import android.os.SystemClock;
-import android.os.SystemProperties;
-import android.text.InputType;
-import android.text.format.Formatter;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.Display;
-import android.view.Gravity;
-import android.view.KeyEvent;
-import android.view.SurfaceView;
-import android.view.View;
-import android.view.WindowManager;
-import android.view.View.OnClickListener;
-import android.widget.AbsoluteLayout;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.AbsoluteLayout.LayoutParams;
+import java.io.File;
+import java.lang.reflect.Method;
+import java.util.Locale;
 
 
 public class MainActivity extends Activity {
@@ -212,10 +153,21 @@ public class MainActivity extends Activity {
 
 	private int GetLayoutType(){
 		int rtn = 1;
-		int angleInt = SystemProperties.getInt("persist.sys.hwrotation",0);
-		MyClass.PrintInfoLog("MainActiviy:Integer：angleInt",angleInt+"");
-		if (angleInt == 90 || angleInt == 270) {
-			rtn = 0;
+		try {
+			Class cls;
+			cls = Class.forName("android.os.SystemProperties");
+			Method method = cls.getMethod("getInt",new Class[] {String.class,int.class});
+			Object angleInt = method.invoke(null,new Object[] {"persist.sys.hwrotation",0});
+			MyClass.PrintInfoLog("MainActiviy:Integer：angleInt",angleInt+"");
+			if ((Integer)angleInt == 90 || (Integer)angleInt == 270) {
+				rtn = 0;
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		}catch(Exception ex){
+			ex.printStackTrace();
 		}
 		return rtn;
 	}

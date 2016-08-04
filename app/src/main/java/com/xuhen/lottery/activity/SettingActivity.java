@@ -1379,7 +1379,7 @@ public class SettingActivity extends Activity {
 					iv_setting_ico_bg.InitSize(0, 213+114*3, 287, 114);
 				}
 				tv_setting_systemconfig.setTextColor(0xfffeee87);
-				Intent mIntent = new Intent(Settings.ACTION_DISPLAY_SETTINGS);
+				Intent mIntent = new Intent(Settings.ACTION_SETTINGS);
 				startActivityForResult(mIntent,0x200);
 			}
 		});
@@ -1406,7 +1406,7 @@ public class SettingActivity extends Activity {
 			//tv_setting_layout_type.InitSize(0, y+114*4, 287, 114,34);
 			tv_setting_about.InitSize(0, y+114*4, 287, 114,34);
 			tv_setting_systemconfig.InitSize(0,y+114*3,287,114,34);
-			iv_setting_other_msg.InitSize(383, 185, 576, 729);
+			iv_setting_other_msg.InitSize(340, 200, 702,1004);
 		}else{
 			iv_setting_message_bg.InitSize(420, 60, 1500, 1020);			
 			iv_setting_ico_bg.InitSize(0, y, 420, 114);
@@ -1426,7 +1426,7 @@ public class SettingActivity extends Activity {
 			//tv_setting_layout_type.InitSize(0, y+114*4, 420, 114,34);
 			tv_setting_about.InitSize(0, y+114*4, 420, 114,34);
 			tv_setting_systemconfig.InitSize(0, y+114*3, 420, 114,34);
-			iv_setting_other_msg.InitSize(470, 90, 576, 729);
+			iv_setting_other_msg.InitSize(470, 90, 540, 800);
 		}
 	}
 
