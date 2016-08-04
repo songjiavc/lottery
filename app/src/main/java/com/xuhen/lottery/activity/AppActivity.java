@@ -542,7 +542,7 @@ public class AppActivity extends Activity {
 			tv_app_update_message.setLineSpacing(0, 1.3f);
 			//公司公告布局
 			iv_company_notice_bg.InitSize(0, 900+840, 540, 180);			
-			tv_company_notice.InitSize(85, 930+840, 750, 110,24);		
+			tv_company_notice.InitSize(77, 930+840, 455, 110,24);
 			btn_next_company_notice.InitSize(850-420, 1005+840, 92, 62);
 			tv_company_notice_number.InitSize(930-420, 993+840, 24, 24, 14);
 			tv_company_notice.setLineSpacing(0, 1.3f);
@@ -556,7 +556,7 @@ public class AppActivity extends Activity {
 			tv_app_update_message.setLineSpacing(0, 1.3f);
 			//公司公告布局
 			iv_company_notice_bg.InitSize(0, 900, 960, 180);			
-			tv_company_notice.InitSize(85, 930, 750, 110,24);		
+			tv_company_notice.InitSize(77, 930, 563, 110,24);
 			btn_next_company_notice.InitSize(850, 1005, 92, 62);
 			tv_company_notice_number.InitSize(930, 993, 24, 24, 14);
 			tv_company_notice.setLineSpacing(0, 1.3f);
