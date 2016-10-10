@@ -111,7 +111,6 @@ public class MyEditText extends EditText {
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		if(this.btn_del_all!=null&&btn_del_all_visable==true&&event.getAction()==MotionEvent.ACTION_UP){			
-			MyClass.PrintLog("="+event.getX()+",="+this.getWidth()+",="+this.btn_del_all.getBounds().width());
 			if(event.getX()>this.getWidth()-this.btn_del_all.getBounds().width()-20){
 				this.setText("");
 				event.setAction(MotionEvent.ACTION_CANCEL);

@@ -104,7 +104,7 @@
     	android:layout_height="45px"
     	android:layout_x="244px"
     	android:layout_y="362px"
-	    android:text="吉彩通信证：test123"
+	    android:text="通信证：test123"
 	    android:textColor="#fdde86"
 	    android:textAppearance="?android:attr/textAppearanceMedium"
 	    android:textSize="45px"        

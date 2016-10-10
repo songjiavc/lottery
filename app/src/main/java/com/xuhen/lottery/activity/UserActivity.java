@@ -545,7 +545,7 @@ public class UserActivity extends Activity {
 		//通信证信息
 		main_tv_info_tip = (MyTextView)this.findViewById(R.id.main_tv_info_tip);
 		main_tv_info_tip.setTextColor(0xfffdde86);
-		main_tv_info_tip.setText("吉彩通信证："+SystemVar.username);
+		main_tv_info_tip.setText("通信证："+SystemVar.username);
 		main_tv_info_tip.setGravity(Gravity.CENTER);
 		main_tv_info_tip.setVisibility(View.VISIBLE);
 		//切换用户按钮
@@ -786,7 +786,7 @@ public class UserActivity extends Activity {
 		main_tv_app_power_tip.setVisibility(View.VISIBLE);
 		lv_app_list.setVisibility(View.VISIBLE);
 		
-		main_tv_info_tip.setText("吉彩通信证："+SystemVar.username);
+		main_tv_info_tip.setText("通信证："+SystemVar.username);
 	}
 	//隐藏所有替换控件
 	public void HideAll(){

@@ -75,11 +75,9 @@ public class MainActivity extends Activity {
 			e.printStackTrace();
 			MyVar.SetScreenSize(dm.widthPixels, dm.heightPixels,dm.scaledDensity);
 		}
-		MyClass.PrintLog("orientation:"+getRequestedOrientation()+",width="+MyVar.GetScreenWidth()+",height="+MyVar.GetScreenHeight());
 		//管理activity
 		GlobalApplication.getInstance().AddActivity(this);
 		ActivityManager am = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
-		MyClass.PrintInfoLog("max memory:"+am.getLargeMemoryClass()+"M");
 		if(GetLayoutType()==1){
 			MyVar.SYSTEM_LAYOUT_TYPE = 1;
 			if(getRequestedOrientation()!=ActivityInfo.SCREEN_ORIENTATION_PORTRAIT||MyVar.GetScreenWidth()>MyVar.GetScreenHeight()){
@@ -88,14 +86,9 @@ public class MainActivity extends Activity {
 		}else{
 			MyVar.SYSTEM_LAYOUT_TYPE = 0;
 			if(getRequestedOrientation()!=ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE||MyVar.GetScreenWidth()<MyVar.GetScreenHeight()){
-				//setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-				//setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-				if(MyVar.GetScreenWidth()<MyVar.GetScreenHeight()){
-					MyVar.SetScreenSize(MyVar.GetScreenHeight(), MyVar.GetScreenWidth(), MyVar.GetScaledDensity());
-				}
+				setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 			}
 		}
-		MyClass.PrintLog("MyVar.SYSTEM_LAYOUT_TYPE="+MyVar.SYSTEM_LAYOUT_TYPE);
 		//屏幕常亮
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		setContentView(R.layout.activity_main);
@@ -154,14 +147,30 @@ public class MainActivity extends Activity {
 	private int GetLayoutType(){
 		int rtn = 1;
 		try {
+			MyClass.PrintInfoLog("GetLayoutType:getRequestedOrientation()"+getRequestedOrientation());
+			MyClass.PrintInfoLog("GetLayoutType:GetScreenWidth:GetScreenHeight"+MyVar.GetScreenWidth()+":"+MyVar.GetScreenHeight());
 			Class cls;
 			cls = Class.forName("android.os.SystemProperties");
 			Method method = cls.getMethod("getInt",new Class[] {String.class,int.class});
-			Object angleInt = method.invoke(null,new Object[] {"persist.sys.hwrotation",0});
-			MyClass.PrintInfoLog("MainActiviy:Integer：angleInt",angleInt+"");
-			if ((Integer)angleInt == 90 || (Integer)angleInt == 270) {
-				rtn = 0;
+			int angleInt = (Integer)method.invoke(null,new Object[] {"persist.sys.hwrotation",-1});
+			if(angleInt == -1){
+				angleInt = (Integer)method.invoke(null,new Object[] {"persist.sys.orientation.value",-1});
+				if(angleInt == -1){
+					if(MyVar.GetScreenWidth() > MyVar.GetScreenHeight()){
+						rtn = 0;
+					}
+				}else {
+					//如果这个值也是-1 则说明从未设置过该属性
+					if (angleInt == 0 || angleInt == 180) {
+						rtn = 0;
+					}
+				}
+			}else{
+				if (angleInt == 90 || angleInt == 270) {
+					rtn = 0;
+				}
 			}
+			MyClass.PrintInfoLog("GetLayoutType:angleInt"+angleInt);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (NoSuchMethodException e) {
@@ -175,7 +184,6 @@ public class MainActivity extends Activity {
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		if(newConfig.orientation == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT){
-			MyClass.PrintLog("config change");
 			//开始重新启动
 			Init();
 			this.onResume();
@@ -315,7 +323,6 @@ public class MainActivity extends Activity {
 
 	//用户登录
 	private void UserLogin(){
-		MyClass.PrintLog("UserLogin");
 		//未保存登录信息
 		if("".equals(SystemVar.username)==true||"".equals(SystemVar.password)==true){
 			MyClass.ShowUserActivity(MyVar.CURRENT_PAGE_ID);
@@ -335,7 +342,6 @@ public class MainActivity extends Activity {
 
 	@Override
 	protected void onResume() {
-		MyClass.PrintLog("MainActivity->onResume");
 		//应对错误的竖屏标识
 		if(MyVar.SYSTEM_LAYOUT_TYPE==1&&MyVar.GetScreenWidth()>=MyVar.GetScreenHeight()){
 			MyClass.PrintErrorLog("MainActivity->onResume->exit");
@@ -343,7 +349,6 @@ public class MainActivity extends Activity {
 			return;
 		}
 		if(MyVar.SYSTEM_LAYOUT_TYPE==0&&MyVar.GetScreenWidth()<=MyVar.GetScreenHeight()){
-			MyClass.PrintErrorLog("MainActivity->onResume->exit");
 			super.onResume();
 			return;
 		}
@@ -408,7 +413,6 @@ public class MainActivity extends Activity {
 			dlg = null;
 		}
 		UnRegNetworkStatusEvent();
-		MyClass.PrintLog("MainActivity->onDestroy");
 		super.onDestroy();
 	}
 
