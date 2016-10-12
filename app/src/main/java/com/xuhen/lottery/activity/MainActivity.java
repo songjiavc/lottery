@@ -86,7 +86,11 @@ public class MainActivity extends Activity {
 		}else{
 			MyVar.SYSTEM_LAYOUT_TYPE = 0;
 			if(getRequestedOrientation()!=ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE||MyVar.GetScreenWidth()<MyVar.GetScreenHeight()){
-				setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+				//setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+				//setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+				if(MyVar.GetScreenWidth()<MyVar.GetScreenHeight()){
+					MyVar.SetScreenSize(MyVar.GetScreenHeight(), MyVar.GetScreenWidth(), MyVar.GetScaledDensity());
+				}
 			}
 		}
 		//屏幕常亮
@@ -147,8 +151,6 @@ public class MainActivity extends Activity {
 	private int GetLayoutType(){
 		int rtn = 1;
 		try {
-			MyClass.PrintInfoLog("GetLayoutType:getRequestedOrientation()"+getRequestedOrientation());
-			MyClass.PrintInfoLog("GetLayoutType:GetScreenWidth:GetScreenHeight"+MyVar.GetScreenWidth()+":"+MyVar.GetScreenHeight());
 			Class cls;
 			cls = Class.forName("android.os.SystemProperties");
 			Method method = cls.getMethod("getInt",new Class[] {String.class,int.class});
@@ -170,7 +172,6 @@ public class MainActivity extends Activity {
 					rtn = 0;
 				}
 			}
-			MyClass.PrintInfoLog("GetLayoutType:angleInt"+angleInt);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (NoSuchMethodException e) {

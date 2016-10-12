@@ -128,8 +128,8 @@
 	    android:text="通行证："
 	    android:textColor="#fefffc"
 	    android:textAppearance="?android:attr/textAppearanceMedium"
-	    android:textSize="37px"        
-    />
+	    android:textSize="37px"
+		/>
     <!-- 用户登录 密码-->
     <com.xuhen.lottery.view.MyTextView 
     	android:id="@+id/main_tv_login_password"
@@ -149,8 +149,8 @@
     	android:layout_height="50px"
     	android:layout_x="546px"
     	android:layout_y="494px"
-    	android:inputType="textCapSentences"
-        />
+		android:inputType="number"
+		/>
     <!-- 用户登录 密码输入框-->
     <com.xuhen.lottery.view.MyEditText 
         android:id="@+id/main_et_login_password"
@@ -158,7 +158,7 @@
     	android:layout_height="50px"
     	android:layout_x="546px"
     	android:layout_y="560px"
-    	android:inputType="textCapSentences"
+    	android:inputType="number"
         />
     <!-- 用户登录　登录按钮 -->
     <com.xuhen.lottery.view.MyImageButton
@@ -213,6 +213,7 @@
     	android:layout_height="50px"
     	android:layout_x="546px"
     	android:layout_y="494px"
+		android:inputType="number"
         />
     <!-- 修改密码 新密码输入框-->
     <com.xuhen.lottery.view.MyEditText 
@@ -221,6 +222,7 @@
     	android:layout_height="50px"
     	android:layout_x="546px"
     	android:layout_y="560px"
+		android:inputType="number"
         />
     <!-- 修改密码 确认密码输入框-->
     <com.xuhen.lottery.view.MyEditText 
@@ -229,6 +231,7 @@
     	android:layout_height="50px"
     	android:layout_x="546px"
     	android:layout_y="560px"
+		android:inputType="number"
         />
     <!-- 修改密码　修改按钮 -->
     <com.xuhen.lottery.view.MyImageButton

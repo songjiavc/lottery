@@ -450,16 +450,16 @@ public class UserActivity extends Activity {
 		main_et_login_username.setHint("请输入通行证");
 		main_et_login_username.setText("");
 		main_et_login_username.requestFocus();
-		main_et_login_username.setFilters(new InputFilter[]{new InputFilter.LengthFilter(32)});//最大输入3个数字
-		main_et_login_username.setKeyListener(MyClass.GetTextKeyListener());
+		main_et_login_username.setFilters(new InputFilter[]{new InputFilter.LengthFilter(9)});//最大输入9个数字
+//		main_et_login_username.setKeyListener(MyClass.GetTextKeyListener());
 		main_et_login_username.setSingleLine(true);
 		main_et_login_username.setVisibility(View.VISIBLE);
 		//通行证密码输入框
 		main_et_login_password = (MyEditText)this.findViewById(R.id.main_et_login_password);
 		main_et_login_password.setHint("请输入密码");
 		main_et_login_password.setText("");
-		main_et_login_password.setFilters(new InputFilter[]{new InputFilter.LengthFilter(32)});//最大输入24个数字
-		main_et_login_password.setKeyListener(MyClass.GetTextKeyListener());
+		main_et_login_password.setFilters(new InputFilter[]{new InputFilter.LengthFilter(9)});//最大输入9个数字
+//		main_et_login_password.setKeyListener(MyClass.GetTextKeyListener());
 		main_et_login_password.setSingleLine(true);
 		main_et_login_password.setTransformationMethod(PasswordTransformationMethod.getInstance());
 		main_et_login_password.setVisibility(View.VISIBLE);
@@ -578,8 +578,8 @@ public class UserActivity extends Activity {
 		main_et_modi_old_pwd = (MyEditText)this.findViewById(R.id.main_et_modi_old_pwd);
 		main_et_modi_old_pwd.setHint("请输入原密码");
 		main_et_modi_old_pwd.setText("");
-		main_et_modi_old_pwd.setFilters(new InputFilter[]{new InputFilter.LengthFilter(32)});//最大输入24个数字
-		main_et_modi_old_pwd.setKeyListener(MyClass.GetTextKeyListener());
+		main_et_modi_old_pwd.setFilters(new InputFilter[]{new InputFilter.LengthFilter(9)});//最大输入24个数字
+//		main_et_modi_old_pwd.setKeyListener(MyClass.GetTextKeyListener());
 		main_et_modi_old_pwd.setSingleLine(true);
 		main_et_modi_old_pwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
 		main_et_modi_old_pwd.setVisibility(View.VISIBLE);
@@ -588,8 +588,8 @@ public class UserActivity extends Activity {
 		main_et_modi_new_pwd = (MyEditText)this.findViewById(R.id.main_et_modi_new_pwd);
 		main_et_modi_new_pwd.setHint("请输入新密码");
 		main_et_modi_new_pwd.setText("");
-		main_et_modi_new_pwd.setFilters(new InputFilter[]{new InputFilter.LengthFilter(32)});//最大输入24个数字
-		main_et_modi_new_pwd.setKeyListener(MyClass.GetTextKeyListener());
+		main_et_modi_new_pwd.setFilters(new InputFilter[]{new InputFilter.LengthFilter(9)});//最大输入24个数字
+//		main_et_modi_new_pwd.setKeyListener(MyClass.GetTextKeyListener());
 		main_et_modi_new_pwd.setSingleLine(true);
 		main_et_modi_new_pwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
 		main_et_modi_new_pwd.setVisibility(View.VISIBLE);
@@ -597,8 +597,8 @@ public class UserActivity extends Activity {
 		main_et_modi_confirm_pwd = (MyEditText)this.findViewById(R.id.main_et_modi_confirm_pwd);
 		main_et_modi_confirm_pwd.setHint("请再次输入密码");
 		main_et_modi_confirm_pwd.setText("");
-		main_et_modi_confirm_pwd.setFilters(new InputFilter[]{new InputFilter.LengthFilter(32)});//最大输入24个数字
-		main_et_modi_confirm_pwd.setKeyListener(MyClass.GetTextKeyListener());
+		main_et_modi_confirm_pwd.setFilters(new InputFilter[]{new InputFilter.LengthFilter(9)});//最大输入24个数字
+//		main_et_modi_confirm_pwd.setKeyListener(MyClass.GetTextKeyListener());
 		main_et_modi_confirm_pwd.setSingleLine(true);
 		main_et_modi_confirm_pwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
 		main_et_modi_confirm_pwd.setVisibility(View.VISIBLE);
@@ -636,6 +636,13 @@ public class UserActivity extends Activity {
 					main_et_modi_confirm_pwd.requestFocus();
 					return true;
 				}
+				if(arg1 == KeyEvent.KEYCODE_ENTER && arg2.getAction()==MotionEvent.ACTION_DOWN){
+					InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+					if(imm.isActive()){
+						imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+					}
+					return true;
+				}
 				return false;
 			}
 		});
@@ -648,6 +655,13 @@ public class UserActivity extends Activity {
 				}
 				if(arg1==KeyEvent.KEYCODE_DPAD_DOWN&&arg2.getAction()==MotionEvent.ACTION_DOWN){
 					main_btn_modi.requestFocus();
+					return true;
+				}
+				if(arg1 == KeyEvent.KEYCODE_ENTER && arg2.getAction()==MotionEvent.ACTION_DOWN){
+					InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+					if(imm.isActive()){
+						imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+					}
 					return true;
 				}
 				return false;
