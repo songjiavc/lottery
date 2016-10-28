@@ -878,7 +878,11 @@ public class AppActivity extends Activity {
     		company_notice_number = company_notice_number%MyVar.company_notice.length();
     	}
 		try {
-			json = MyVar.company_notice.getJSONObject(company_notice_number);
+			if(company_notice_number == 0){
+				json = null;
+			}else {
+				json = MyVar.company_notice.getJSONObject(company_notice_number);
+			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

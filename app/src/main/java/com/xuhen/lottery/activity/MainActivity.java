@@ -155,7 +155,9 @@ public class MainActivity extends Activity {
 			cls = Class.forName("android.os.SystemProperties");
 			Method method = cls.getMethod("getInt",new Class[] {String.class,int.class});
 			int angleInt = (Integer)method.invoke(null,new Object[] {"persist.sys.hwrotation",-1});
+
 			if(angleInt == -1){
+				MyClass.PrintInfoLog("persist.sys.hwrotation 该属性无法获取！");
 				angleInt = (Integer)method.invoke(null,new Object[] {"persist.sys.orientation.value",-1});
 				if(angleInt == -1){
 					if(MyVar.GetScreenWidth() > MyVar.GetScreenHeight()){
@@ -168,6 +170,7 @@ public class MainActivity extends Activity {
 					}
 				}
 			}else{
+				MyClass.PrintInfoLog("persist.sys.hwrotation 该属性获取！");
 				if (angleInt == 90 || angleInt == 270) {
 					rtn = 0;
 				}
@@ -218,9 +221,9 @@ public class MainActivity extends Activity {
 		//防止这里代码多次运行
 		if(init_flag==false){
 			//提示用户连接网络,在没有任何网络结果时显示网络问题
-			if(MyVar.main_handler.hasMessages(0x1000)==false){
-				MyClass.SendMessageDelay(MyVar.main_handler, 0x1000, 6000);
-			}
+//			if(MyVar.main_handler.hasMessages(0x1000)==false){
+//				MyClass.SendMessageDelay(MyVar.main_handler, 0x1000, 60000);
+//			}
 			RegNetworkStatusEvent();
 			//读入配置文件
 			SystemVar.LoadCfg();
@@ -353,6 +356,7 @@ public class MainActivity extends Activity {
 			super.onResume();
 			return;
 		}
+		MyClass.PrintInfoLog("onResume 中执行的方法弹出的！");
 		if(MyVar.main_handler!=null&&MyVar.main_handler.hasMessages(0x1000)==false){
 			MyClass.SendMessageDelay(MyVar.main_handler, 0x1000, 6000);
 		}
@@ -361,12 +365,15 @@ public class MainActivity extends Activity {
 		NetworkInfo  wifiNetInfo=connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 		NetworkInfo  ethNetInfo=connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_ETHERNET);
 		if(!mobNetInfo.isConnected()&&!wifiNetInfo.isConnected()&&!ethNetInfo.isConnected()) {
+			MyClass.PrintInfoLog("onResume 检查网络状态不正常！");
 			MyVar.SetNetworkStatusFlag(false);
 			//提示用户连接网络
 			if(MyVar.main_handler.hasMessages(0x1000)==false){
 				MyClass.SendMessageDelay(MyVar.main_handler, 0x1000, 6000);
 			}
 		}else{
+
+			MyClass.PrintInfoLog("onResume 检查网络状态正常！");
 			if(MyVar.GetNetWorkStatusFlag()==true){
 				return;
 			}
