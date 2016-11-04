@@ -219,7 +219,7 @@ public class AppActivity extends Activity {
 					tv_line4.setGravity(Gravity.LEFT);
 					dlg.AddView(tv_line4);
 					MyTextView tv_line5 = new MyTextView(AppActivity.this);
-					tv_line5.setText("公司客服:400-1111-354");
+					tv_line5.setText("公司客服:400-1691-810");
 					tv_line5.InitSize(75, 629, 642, 85, 46);
 					tv_line5.setTextColor(0xff06263a);
 					tv_line5.setGravity(Gravity.LEFT);
